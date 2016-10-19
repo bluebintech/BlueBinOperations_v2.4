@@ -78,7 +78,7 @@
                         <asp:Label runat="server" Text='<%# Bind("Login") %>' ID="Label5"></asp:Label>
                     </ItemTemplate>
 
-                    <FooterTemplate><asp:TextBox runat="server" ID="Login" Columns="5"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorLogin" runat="server" ControlToValidate="Login" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator></FooterTemplate>
+                    <FooterTemplate><asp:TextBox runat="server" ID="Login"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorLogin" runat="server" ControlToValidate="Login" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator></FooterTemplate>
 
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Email" SortExpression="Email">

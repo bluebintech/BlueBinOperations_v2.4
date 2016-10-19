@@ -16,7 +16,7 @@
 </head>
 
     <body>
-        <footer><a href="#" onClick="RefreshReport()" style="font-size:x-small;">Refresh Report Data - <asp:Label runat="server" ID="HBTitleL"></asp:Label></a></footer>
+        <footer><a href="#" onClick="RefreshReport()" style="font-size:x-small;">Refresh Report Data - <asp:Label runat="server" ID="HBTitleL"></asp:Label></a>&nbsp;&nbsp;&nbsp;<a runat="server" href="~/" target ="_blank"  style="font-size:x-small;">Launch DMS App - <asp:Label runat="server" ID="DBTitleL"></asp:Label></a></footer>
     </body>
     <script type="text/javascript" src="https://online.tableau.com/javascripts/api/tableau-2.min.js"></script>
         <script>

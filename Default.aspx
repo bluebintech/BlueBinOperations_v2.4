@@ -100,5 +100,15 @@
                 <a class="btn btn-primary btn-sm" runat="server" href="~/HardwareOrder">Click Here &raquo;</a>
             </p>
         </div>
+
+       <div class="col-md-4" id="timestudydiv" runat="server">
+            <h2>Time Studies</h2>
+            <p>
+                You can easily Enter in Time Studies for various Services for Productivity tracking in the BlueBin Dashboard.
+            </p>
+            <p>
+                <a class="btn btn-primary btn-sm" runat="server" href="~/TimeStudy">Click Here &raquo;</a>
+            </p>
+        </div>
         </div>
 </asp:Content>

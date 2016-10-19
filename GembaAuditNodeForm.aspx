@@ -45,7 +45,7 @@
 <%-- Auditer --%> 
                 <asp:TableRow Width="400px">    
                 <asp:TableCell Width="100px">
-                    <asp:Label ID="Label7" runat="server" Text="Auditer" TextMode="MultiLine" Width="100px"></asp:Label>
+                    <asp:Label ID="Label7" runat="server" Text="Auditor" TextMode="MultiLine" Width="100px"></asp:Label>
                                   
                 </asp:TableCell>
                            <asp:TableCell Width="300px">

@@ -52,6 +52,7 @@ Partial Public Class OperationalProcedures
         GridViewBeltCertification.Visible = True
         GridViewOther.Visible = True
 
+
         If Me.Page.User.Identity.IsAuthenticated Then
             Dim UserLogin As String = Page.User.Identity.Name.ToString().ToLower()
             Dim UserDocUploadOther As String
@@ -80,6 +81,8 @@ Partial Public Class OperationalProcedures
                 GridViewFormsSignage.Columns(10).Visible = True
                 GridViewBeltCertification.Columns(10).Visible = True
                 GridViewOther.Columns(10).Visible = True
+                'lblMessage.ForeColor = System.Drawing.Color.Black
+                'lblMessage.Text = "File Size must be less than 32 MB"
 
             Else
                 UploadUtility.Visible = False
@@ -156,10 +159,13 @@ Partial Public Class OperationalProcedures
             Case ".ppsx"
                 DocumentType = "application/ppsx"
                 Exit Select
+            Case ".pptx"
+                DocumentType = "application/pptx"
+                Exit Select
             Case Else
                 'Invalid file type uploaded
                 lblMessage.ForeColor = System.Drawing.Color.Red
-                lblMessage.Text = "File Upload Unuccessful.  Invalid File Type"
+                lblMessage.Text = "File Upload Unsuccessful.  Invalid File Type"
                 Exit Sub
         End Select
         'Connect to the database and insert a new record into Products

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="BlueBin Cones Deployed" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="ConesDeployed.aspx.vb" Inherits="ConesDeployed" %>
+﻿<%@ Page Title="BlueBin Time Study - Stock Out Process" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="TimeStudyStockOut.aspx.vb" Inherits="TimeStudyStockOut" %>
 
     <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -20,15 +20,15 @@
                   <asp:TableRow>
 
                  <asp:TableCell><b>Facility:</b>&nbsp;&nbsp;
-                <asp:DropDownList ID="FacilityDD"  AppendDataBoundItems="true" runat="server" DataSourceID="FacilityDataSource" DataTextField="FacilityName" DataValueField="FacilityID"  AutoPostBack="True">
-                <asp:ListItem Selected="True" Text = "--Select--" Value = "" ></asp:ListItem>
+                <asp:DropDownList ID="FacilityDD"  AppendDataBoundItems="true" runat="server" DataSourceID="FacilityDataSource" DataTextField="FacilityName" DataValueField="FacilityID"  AutoPostBack="False">
+                <asp:ListItem Text = "--Select--" Value = ""></asp:ListItem>
                 </asp:DropDownList>
                 </asp:TableCell>
          <asp:TableCell Width="15"></asp:TableCell>
             </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
               <asp:TableRow>
           <asp:TableCell><b>Location:</b>
-                <asp:DropDownList ID="LocationDD"  AppendDataBoundItems="false" runat="server" DataSourceID="LocationSource" DataTextField="LocationName" DataValueField="LocationID"  AutoPostBack="True">
+                <asp:DropDownList ID="LocationDD"  AppendDataBoundItems="true" runat="server" DataSourceID="LocationSource" DataTextField="LocationName" DataValueField="LocationID"  AutoPostBack="True">
                 <asp:ListItem Selected = "True" Text = "--Select--" Value = ""></asp:ListItem>
                 </asp:DropDownList>
                 </asp:TableCell>
@@ -36,7 +36,7 @@
               </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
               <asp:TableRow>
           <asp:TableCell><b>Item:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:DropDownList ID="ClinicalDescriptionDD" runat="server"  AppendDataBoundItems="false"  DataTextField="ExtendedDescription" DataValueField="ItemID" DataSourceID="ClinicalDSource" >
+                    <asp:DropDownList ID="ClinicalDescriptionDD" runat="server"  AppendDataBoundItems="false"  DataTextField="ExtendedDescription" DataValueField="ItemID" DataSourceID="ClinicalDSource"  AutoPostBack="True">
                     <asp:ListItem Selected = "True" Text = "--Select--" Value = ""></asp:ListItem>
                     </asp:DropDownList>
                 </asp:TableCell>
@@ -66,7 +66,7 @@
           <asp:TableRow>  
             <asp:TableCell><asp:Label ID="lblMessage" runat="server" Text="" Font-Names = "Arial"></asp:Label> </asp:TableCell>
             </asp:TableRow>
-</asp:Table></asp:TableCell>
+        </asp:Table></asp:TableCell>
             <asp:TableCell Width="15"></asp:TableCell>
             <asp:TableCell><b>Details:</b>&nbsp;<asp:TextBox runat="server" TextMode="MultiLine" ID="DetailsTB" Height="120" Width="200" MaxLength="255"></asp:TextBox></asp:TableCell>
             <asp:TableCell Width="15"></asp:TableCell>
@@ -163,12 +163,7 @@
             </SelectParameters>
     </asp:SqlDataSource>
         <asp:SqlDataSource runat="server" ID="FacilityDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
-        <asp:SqlDataSource ID="LocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
-            SelectCommand="exec sp_SelectLocationCascade 'No'" FilterExpression="FacilityID = '{0}'" >
-                <FilterParameters>
-                    <asp:ControlParameter Name="FacilityID" ControlID="FacilityDD" PropertyName="SelectedValue" />
-                </FilterParameters>       
-        </asp:SqlDataSource>      
+        <asp:SqlDataSource ID="LocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectLocation"></asp:SqlDataSource>      
         <asp:SqlDataSource ID="ClinicalDSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
             SelectCommand="exec sp_SelectConesLocation"  FilterExpression="LocationID = '{0}'" >
         <FilterParameters>

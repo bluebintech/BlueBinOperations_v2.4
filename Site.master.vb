@@ -80,6 +80,8 @@ Partial Public Class SiteMaster
             Dim HuddleBoard3Title As String
             Dim HuddleBoard4Title As String
             Dim HuddleBoard5Title As String
+            Dim MENUTimeStudy As String
+            Dim UserMENUTimeStudy As String
 
             Dim constr As String = ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString
             Using conroles As New SqlConnection(constr)
@@ -189,6 +191,11 @@ Partial Public Class SiteMaster
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Cones")
                     UserMENUCones = Convert.ToString(cmdadmin.ExecuteScalar())
                     cmdadmin.Parameters.Clear()
+                    'UserMENU-TimeStudy
+                    cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
+                    cmdadmin.Parameters.AddWithValue("@OpName", "MENU-TimeStudy")
+                    UserMENUTimeStudy = Convert.ToString(cmdadmin.ExecuteScalar())
+                    cmdadmin.Parameters.Clear()
                     'UserMENU-Other
                     cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Other")
@@ -268,6 +275,10 @@ Partial Public Class SiteMaster
                     'MENU-Cones
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Cones")
                     MENUCones = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    'MENU-TimeStudy
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-TimeStudy")
+                    MENUTimeStudy = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
                     'MENU-Other
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Other")
@@ -405,6 +416,12 @@ Partial Public Class SiteMaster
             'Else
             'DashboardDD.Visible = True
             'End If
+
+            If MENUTimeStudy = "No" Or UserMENUTimeStudy = "No" Then
+                TimeStudyDD.Visible = False
+            Else
+                TimeStudyDD.Visible = True
+            End If
 
             If MENUQCN = "No" Or UserMENUQCN = "No" Then
                 QCNDD.Visible = False

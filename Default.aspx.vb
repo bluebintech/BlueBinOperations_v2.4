@@ -76,6 +76,8 @@ Partial Class _Default
             Dim MENUOther As String
             Dim MENUCones As String
             Dim UserMENUCones As String
+            Dim MENUTimeStudy As String
+            Dim UserMENUTimeStudy As String
 
             Dim constr As String = ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString
 
@@ -166,6 +168,11 @@ Partial Class _Default
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Cones")
                     UserMENUCones = Convert.ToString(cmdadmin.ExecuteScalar())
                     cmdadmin.Parameters.Clear()
+                    'UserMENU-TimeStudy
+                    cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
+                    cmdadmin.Parameters.AddWithValue("@OpName", "MENU-TimeStudy")
+                    UserMENUTimeStudy = Convert.ToString(cmdadmin.ExecuteScalar())
+                    cmdadmin.Parameters.Clear()
                     'UserMENU-Other
                     cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Other")
@@ -226,6 +233,10 @@ Partial Class _Default
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Cones")
                     MENUCones = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
+                    'MENU-TimeStudy
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-TimeStudy")
+                    MENUTimeStudy = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
                     'MENU-Other
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Other")
                     MENUOther = Convert.ToString(cmdmenu.ExecuteScalar())
@@ -233,6 +244,12 @@ Partial Class _Default
                     conmenu.Close()
                 End Using
             End Using
+
+            If MENUTimeStudy = "No" Or UserMENUTimeStudy = "No" Then
+                timestudydiv.Visible = False
+            Else
+                timestudydiv.Visible = True
+            End If
 
             If MENUQCN = "No" Or UserMENUQCN = "No" Then
                 qcndiv.Visible = False

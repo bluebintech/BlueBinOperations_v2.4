@@ -69,6 +69,7 @@ Partial Public Class HuddleBoard2
         'Set the Name of the Page and the Refresh Text
         HBTitle.Text = HuddleBoardTitle
         HBTitleL.Text = HuddleBoardTitle
+        DBTitleL.Text = TableauWorkbook
 
         Dim TableauLogin As String
         'Set the User Login to be bluebin only if it exists.  If it doesn't, use the generic login from the tables.

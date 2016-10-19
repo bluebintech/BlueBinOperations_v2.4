@@ -157,6 +157,10 @@ Public Class Dashboard
             Dim OPQCNDetail As String
             Dim OPGembaDashboard As String
             Dim OPItemUsage As String
+            Dim OPTSAvg As String
+            Dim OPTSLocation As String
+            Dim OPTSFTE As String
+            Dim OPTSDashboard As String
 
             Dim SrcBuyerPerformance As String
             Dim SrcSpecialPerformance As String
@@ -295,6 +299,18 @@ Public Class Dashboard
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Item Usage")
                     OPItemUsage = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Averages")
+                    OPTSAvg = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Location Times")
+                    OPTSLocation = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study FTE Planner")
+                    OPTSFTE = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Dashboard")
+                    OPTSDashboard = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
 
                     'REPORTS-Sourcing
@@ -490,10 +506,47 @@ Public Class Dashboard
                 MenuOPGembaDashboard.Visible = False
             End If
 
+            If OPQCNDashboard = "Yes" Or OPQCNDetail = "Yes" Or OPGembaDashboard = "Yes" Then
+                QCNGembaLine.Visible = True
+            Else
+                QCNGembaLine.Visible = False
+            End If
+
+
             If OPItemUsage = "Yes" Then
                 MenuOPItemUsage.Visible = True
             Else
                 MenuOPItemUsage.Visible = False
+            End If
+
+            If OPTSAvg = "Yes" Then
+                MenuOPTSAvg.Visible = True
+            Else
+                MenuOPTSAvg.Visible = False
+            End If
+
+            If OPTSLocation = "Yes" Then
+                MenuOPTSLocation.Visible = True
+            Else
+                MenuOPTSLocation.Visible = False
+            End If
+
+            If OPTSFTE = "Yes" Then
+                MenuOPTSFTE.Visible = True
+            Else
+                MenuOPTSFTE.Visible = False
+            End If
+
+            If OPTSDashboard = "Yes" Then
+                MenuOPTSDashboard.Visible = True
+            Else
+                MenuOPTSDashboard.Visible = False
+            End If
+
+            If OPTSFTE = "Yes" Or OPTSAvg = "Yes" Or OPTSLocation = "Yes" Or OPTSDashboard = "Yes" Then
+                TSLine.Visible = True
+            Else
+                TSLine.Visible = False
             End If
 
 

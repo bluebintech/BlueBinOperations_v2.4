@@ -63,7 +63,7 @@
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("UserLogin") %>' ID="ITUserLoginL"></asp:Label>
                 </ItemTemplate>
-                <FooterTemplate><asp:TextBox runat="server" Width="120px" ID="UserLogin"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorUserLogin" ValidationGroup="AddUsers" runat="server" ControlToValidate="UserLogin" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator></FooterTemplate>
+                <FooterTemplate><asp:TextBox runat="server" Width="190px" ID="UserLogin"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorUserLogin" ValidationGroup="AddUsers" runat="server" ControlToValidate="UserLogin" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator></FooterTemplate>
                              
             </asp:TemplateField>
             <asp:TemplateField HeaderText="First Name" SortExpression="FirstName">
@@ -118,12 +118,12 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Title" SortExpression="Title">
                 <EditItemTemplate>
-                    <asp:TextBox runat="server" Width="80px" Text='<%# Bind("Title") %>' ID="TitleTB"></asp:TextBox>
+                    <asp:TextBox runat="server" Width="120px" Text='<%# Bind("Title") %>' ID="TitleTB"></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("Title") %>' ID="ITTitleL"></asp:Label>
                 </ItemTemplate>
-                <FooterTemplate><asp:TextBox runat="server" Width="80px" ID="Title"></asp:TextBox></FooterTemplate>
+                <FooterTemplate><asp:TextBox runat="server" Width="120px" ID="Title"></asp:TextBox></FooterTemplate>
                 <ItemStyle Wrap="False" Width="50px"></ItemStyle>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="ERP UID" SortExpression="ERPUser" Visible="False">

@@ -62,11 +62,11 @@
            
      <asp:SqlDataSource runat="server" ID="AssignedSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="SELECT DISTINCT v.LastName + ', ' + v.FirstName as AssignedUserName FROM qcn.QCN a inner join [bluebin].[BlueBinUser] v on AssignedUserID = v.BlueBinUserID order by 1"></asp:SqlDataSource>
  <p>
-     <b>QCN Status:</b>&nbsp;&nbsp;<asp:DropDownList ID="QCNStatusSearchDD" AppendDataBoundItems="true" runat="server" DataSourceID="QCNStatusSearchDS" DataTextField="QCNStatusName" DataValueField="QCNStatusName">
+     <b>QCN Status:</b>&nbsp;&nbsp;<asp:DropDownList ID="QCNStatusSearchDD" AppendDataBoundItems="true" runat="server" DataSourceID="QCNStatusSearchDS" DataTextField="Status" DataValueField="Status">
             <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
         </asp:DropDownList>
            
-     <asp:SqlDataSource runat="server" ID="QCNStatusSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="select Status as QCNStatusName from qcn.QCNStatus where QCNStatusID in (select QCNStatusID from qcn.QCN)"></asp:SqlDataSource>
+     <asp:SqlDataSource runat="server" ID="QCNStatusSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectQCNStatus '1'"></asp:SqlDataSource>
 
     </p> 
     <p>

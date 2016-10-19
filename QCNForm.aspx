@@ -45,7 +45,7 @@
                
                 </asp:TableCell>
                 <asp:TableCell>
-                    <asp:DropDownList ID="FacilityDD"  AppendDataBoundItems="true" runat="server" DataSourceID="FacilityDataSource" DataTextField="FacilityName" DataValueField="FacilityID"  AutoPostBack="False">
+                    <asp:DropDownList ID="FacilityDD"  AppendDataBoundItems="true" runat="server" DataSourceID="FacilityDataSource" DataTextField="FacilityName" DataValueField="FacilityID"  AutoPostBack="True">
                 <asp:ListItem Text = "--Select--" Value = ""></asp:ListItem>
                 </asp:DropDownList>
                 </asp:TableCell>
@@ -58,7 +58,7 @@
                
                 </asp:TableCell>
                 <asp:TableCell>
-                    <asp:DropDownList ID="LocationDD" AppendDataBoundItems="true"  runat="server" DataSourceID="LocationSource" DataTextField="LocationName" DataValueField="LocationID">
+                    <asp:DropDownList ID="LocationDD" AppendDataBoundItems="false"  runat="server" DataSourceID="LocationSource" DataTextField="LocationName" DataValueField="LocationID">
                 <asp:ListItem Selected = "True" Text = "--Select--" Value = ""></asp:ListItem>
                 <asp:ListItem Text = "Multiple" Value = "Multiple"></asp:ListItem>
             </asp:DropDownList>
@@ -235,11 +235,14 @@ InFileMaintenance - New ERP # or other item activation steps." />
 
     
     <br />&nbsp;&nbsp; <br /><br /><br /><br /><br />
-        <asp:SqlDataSource ID="LocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectLocation"></asp:SqlDataSource>      
-        <asp:SqlDataSource ID="QCNTypeSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="select distinct Name from qcn.QCNType where Active = 1"></asp:SqlDataSource>
-        <asp:SqlDataSource ID="QCNComplexitySource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="SELECT DISTINCT QCNCID,[Name]+' - ' + Description as QCNComplexity FROM [qcn].[QCNComplexity] WHERE Active = 1"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="LocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectLocationCascade 'Yes'"  FilterExpression="FacilityID = '{0}'" >
+                <FilterParameters>
+                    <asp:ControlParameter Name="FacilityID" ControlID="FacilityDD" PropertyName="SelectedValue" />
+                </FilterParameters></asp:SqlDataSource>      
+        <asp:SqlDataSource ID="QCNTypeSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectQCNType '1'"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="QCNComplexitySource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectQCNComplexity '1'"></asp:SqlDataSource>
         <asp:SqlDataSource ID="AssignedUserSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="SELECT BlueBinUserID as AssignedUser,LastName + ', ' + FirstName as AssignedFullName FROM [bluebin].[BlueBinUser] WHERE AssignToQCN = 1"></asp:SqlDataSource>
-        <asp:SqlDataSource ID="QCNStatusSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="SELECT DISTINCT [Status] FROM [qcn].[QCNStatus] WHERE Active = 1"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="QCNStatusSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectQCNStatus'1'"></asp:SqlDataSource>
         <asp:SqlDataSource runat="server" ID="FacilityDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
         
     

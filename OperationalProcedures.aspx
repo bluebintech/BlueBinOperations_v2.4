@@ -76,10 +76,11 @@
               <asp:TableCell>Document Name:&nbsp;<asp:TextBox ID="DocumentName" runat="server" BorderColor="#eeeeee" Width="220px" /></asp:TableCell>
           </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
           <asp:TableRow>
-              <asp:TableCell><asp:FileUpload ID="UploadDocument" runat="server" BorderWidth="4" BorderColor="#eeeeee" /></asp:TableCell>
+              <asp:TableCell><asp:FileUpload ID="UploadDocument" runat="server" BorderWidth="4" BorderColor="#eeeeee" ToolTip="File Size must be less than 32MB" /></asp:TableCell>
           </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
           <asp:TableRow>
               <asp:TableCell><asp:Button ID="DocumentInsert" class="btn btn-primary btn-lg" runat="server" Text="Upload" OnClientClick="DocumentInsert_Click"></asp:Button></asp:TableCell>
+              
           </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
           <asp:TableRow>  
             <asp:TableCell><asp:Label ID="lblMessage" runat="server" Text="" Font-Names = "Arial"></asp:Label> </asp:TableCell>

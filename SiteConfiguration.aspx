@@ -389,7 +389,7 @@
     <p>
         <asp:SqlDataSource runat="server" ID="QCNTypeDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' 
             DeleteCommand="exec sp_DeleteQCNType @original_QCNTypeID,@original_Name" 
-            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectQCNType" 
+            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectQCNType ''" 
             UpdateCommand="exec sp_EditQCNType @original_QCNTypeID,@Name,@Active,@Description">
         <DeleteParameters>
             <asp:Parameter Name="original_QCNTypeID" Type="Int32"></asp:Parameter>
@@ -410,7 +410,7 @@
     <p>
         <asp:SqlDataSource runat="server" ID="QCNStatusDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' 
             DeleteCommand="exec sp_DeleteQCNStatus @original_QCNStatusID,@original_Status" 
-            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectQCNStatus" 
+            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectQCNStatus ''" 
             UpdateCommand="exec sp_EditQCNStatus @original_QCNStatusID,@Status,@Active,@Description">
         <DeleteParameters>
             <asp:Parameter Name="original_QCNStatusID" Type="Int32"></asp:Parameter>
@@ -432,7 +432,7 @@
         <p>
         <asp:SqlDataSource runat="server" ID="QCNComplexityDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' 
             DeleteCommand="exec sp_DeleteQCNComplexity @original_QCNCID,@original_Name" 
-            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectQCNComplexity" 
+            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectQCNComplexity ''" 
             UpdateCommand="exec sp_EditQCNComplexity @original_QCNCID,@Name,@Active,@Description">
         <DeleteParameters>
             <asp:Parameter Name="original_QCNCID" Type="Int32"></asp:Parameter>
