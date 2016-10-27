@@ -12,13 +12,16 @@ Partial Public Class QCN
     Inherits Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
+        If IsPostBack Then
+            GetData()
+        End If
         GridViewQCN.DataBind()
 
 
         If Me.Page.User.Identity.IsAuthenticated Then
             Dim UserLogin As String = Page.User.Identity.Name.ToString().ToLower()
             Dim QCNReferenceC As String
+            Dim QCNBulkCompleteC As String
             Dim OPQCNDashboardB As String
 
             Dim constr As String = ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString
@@ -35,6 +38,11 @@ Partial Public Class QCN
                     OPQCNDashboardB = Convert.ToString(cmdadmin.ExecuteScalar())
                     cmdadmin.Parameters.Clear()
 
+                    'QCN Bulk Complete
+                    cmdadmin.Parameters.AddWithValue("@ConfigName", "QCN-Bulk CompleteC")
+                    QCNBulkCompleteC = Convert.ToString(cmdadmin.ExecuteScalar())
+                    cmdadmin.Parameters.Clear()
+
                     'QCN-ReferenceC
                     cmdadmin.Parameters.AddWithValue("@ConfigName", "QCN-ReferenceC")
                     QCNReferenceC = Convert.ToString(cmdadmin.ExecuteScalar())
@@ -42,10 +50,19 @@ Partial Public Class QCN
                 End Using
             End Using
 
-            If QCNReferenceC = "Yes" Then
-                GridViewQCN.Columns(27).Visible = True
+            If QCNBulkCompleteC = "Yes" Then
+                GridViewQCN.Columns(1).Visible = True
+                btnComplete.Visible = True
             Else
-                GridViewQCN.Columns(27).Visible = False
+                GridViewQCN.Columns(1).Visible = False
+                btnComplete.Visible = False
+
+            End If
+
+            If QCNReferenceC = "Yes" Then
+                GridViewQCN.Columns(28).Visible = True
+            Else
+                GridViewQCN.Columns(28).Visible = False
 
             End If
 
@@ -57,6 +74,27 @@ Partial Public Class QCN
 
         End If
 
+    End Sub
+    Private Sub SetData()
+        Dim currentCount As Integer = 0
+        Dim chkAll As CheckBox = DirectCast(GridViewQCN.HeaderRow _
+                        .Cells(0).FindControl("chkAll"), CheckBox)
+        chkAll.Checked = True
+        Dim arr As ArrayList = DirectCast(ViewState("SelectedRecords") _
+                                        , ArrayList)
+        For i As Integer = 0 To GridViewQCN.Rows.Count - 1
+            Dim chk As CheckBox = DirectCast(GridViewQCN.Rows(i).Cells(0) _
+                                         .FindControl("chk"), CheckBox)
+            If chk IsNot Nothing Then
+                chk.Checked = arr.Contains(GridViewQCN.DataKeys(i).Value)
+                If Not chk.Checked Then
+                    chkAll.Checked = False
+                Else
+                    currentCount += 1
+                End If
+            End If
+        Next
+        hfCount.Value = (arr.Count - currentCount).ToString()
     End Sub
 
     Protected Sub NewQCNB_Click(sender As Object, e As EventArgs) Handles NewQCNB.Click
@@ -81,15 +119,15 @@ Partial Public Class QCN
 
     Protected Sub OnRowDataBound(sender As Object, e As GridViewRowEventArgs)
         If e.Row.RowType = DataControlRowType.DataRow Then
-            Dim cellLocation As TableCell = e.Row.Cells(5)
-            Dim cellUpdates As TableCell = e.Row.Cells(20)
+            Dim cellLocation As TableCell = e.Row.Cells(6)
+            Dim cellUpdates As TableCell = e.Row.Cells(21)
             'Dim cellDetails As TableCell = e.Row.Cells(12)
             cellLocation.ToolTip = "QCNID:" & TryCast(e.Row.DataItem, DataRowView)("QCNID").ToString()
             cellUpdates.ToolTip = TryCast(e.Row.DataItem, DataRowView)("UpdatesText").ToString()
             'cellDetails.ToolTip = TryCast(e.Row.DataItem, DataRowView)("DetailsText").ToString()
         End If
         If e.Row.RowType = DataControlRowType.DataRow Then
-            Dim cell As TableCell = e.Row.Cells(21)
+            Dim cell As TableCell = e.Row.Cells(22)
             '        Dim cell2 As TableCell = e.Row.Cells(24)
             Dim quantity As Integer = Integer.Parse(cell.Text)
             '        Dim Status As String = cell2.Text
@@ -107,9 +145,10 @@ Partial Public Class QCN
     End Sub
 
 
-    Protected Sub OnPageIndexChanging(sender As Object, e As GridViewPageEventArgs)
+    Protected Sub OnPaging(sender As Object, e As GridViewPageEventArgs)
         GridViewQCN.PageIndex = e.NewPageIndex
         GridViewQCN.DataBind()
+        SetData()
     End Sub
 
     Protected Sub ExportToExcel(sender As Object, e As EventArgs)
@@ -159,10 +198,85 @@ Partial Public Class QCN
     End Sub
 
     Protected Sub OnCheckedChanged(sender As Object, e As EventArgs)
-        GridViewQCN.Columns(17).Visible = TryCast(sender, CheckBox).Checked
+        GridViewQCN.Columns(18).Visible = TryCast(sender, CheckBox).Checked
 
     End Sub
 
+    Private Sub GetData()
+        Dim arr As ArrayList
+        If ViewState("SelectedRecords") IsNot Nothing Then
+            arr = DirectCast(ViewState("SelectedRecords"), ArrayList)
+        Else
+            arr = New ArrayList()
+        End If
+        Dim chkAll As CheckBox = DirectCast(GridViewQCN.HeaderRow _
+                    .Cells(0).FindControl("chkAll"), CheckBox)
+        For i As Integer = 0 To GridViewQCN.Rows.Count - 1
+            If chkAll.Checked Then
+                If Not arr.Contains(GridViewQCN.DataKeys(i).Value) Then
+                    arr.Add(GridViewQCN.DataKeys(i).Value)
+                End If
+            Else
+                Dim chk As CheckBox = DirectCast(GridViewQCN.Rows(i).Cells(0) _
+                                            .FindControl("chk"), CheckBox)
+                If chk.Checked Then
+                    If Not arr.Contains(GridViewQCN.DataKeys(i).Value) Then
+                        arr.Add(GridViewQCN.DataKeys(i).Value)
+                    End If
+                Else
+                    If arr.Contains(GridViewQCN.DataKeys(i).Value) Then
+                        arr.Remove(GridViewQCN.DataKeys(i).Value)
+                    End If
+                End If
+            End If
+        Next
+        ViewState("SelectedRecords") = arr
+    End Sub
+
+    Private Sub CompleteRecord(ByVal QCNID As String)
+        Dim UserLoginText As String = Page.User.Identity.Name.ToString().ToLower()
+        Dim CurrentDate As String = DateTime.Now.ToString("MM/dd/yyyy")
+        Dim constr As String = ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString
+        Dim query As String = "update qcn.QCN set QCNStatusID = (select QCNStatusID from qcn.QCNStatus where Status = 'Completed'), LastUpdated = getdate(), DateCompleted = getdate(),Updates = Updates + ' | Bulk Completed by " & UserLoginText & " on " & CurrentDate & "' where QCNID = @QCNID"
+        Dim con As New SqlConnection(constr)
+        Dim cmd As New SqlCommand(query, con)
+        cmd.Parameters.AddWithValue("@QCNID", QCNID)
+        con.Open()
+        cmd.ExecuteNonQuery()
+        con.Close()
+    End Sub
+
+    Private Sub ShowMessage(ByVal count As Integer)
+        Dim sb As New StringBuilder()
+        sb.Append("<script type = 'text/javascript'>")
+        sb.Append("alert('")
+        sb.Append(count.ToString())
+        sb.Append(" records completed.');")
+        sb.Append("</script>")
+        ClientScript.RegisterStartupScript(Me.GetType(),
+                        "script", sb.ToString())
+    End Sub
+
+    Protected Sub btnComplete_Click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim count As Integer = 0
+        SetData()
+        GridViewQCN.AllowPaging = False
+        GridViewQCN.DataBind()
+        Dim arr As ArrayList = DirectCast(ViewState("SelectedRecords") _
+                                        , ArrayList)
+        count = arr.Count
+        For i As Integer = 0 To GridViewQCN.Rows.Count - 1
+            If arr.Contains(GridViewQCN.DataKeys(i).Value) Then
+                CompleteRecord(GridViewQCN.DataKeys(i).Value.ToString())
+                arr.Remove(GridViewQCN.DataKeys(i).Value)
+            End If
+        Next
+        ViewState("SelectedRecords") = arr
+        hfCount.Value = "0"
+        GridViewQCN.AllowPaging = True
+        GridViewQCN.DataBind()
+        ShowMessage(count)
+    End Sub
 End Class
 
 

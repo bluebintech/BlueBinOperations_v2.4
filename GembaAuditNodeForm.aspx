@@ -28,6 +28,20 @@
                     <asp:TextBox ID="CurrentTimeTB" runat="server"  ReadOnly="True" BackColor="#CCCCCC" DataFormatString="{0:d}" Width="100px"></asp:TextBox>
                 </asp:TableCell>
                  </asp:TableRow><asp:TableRow Height="10"></asp:TableRow>
+ <%-- Facility --%>   
+                 <asp:TableRow Width="400px">    
+                <asp:TableCell Width="100px" >
+                    <asp:Label ID="Facility" runat="server" Text="Facility" TextMode="MultiLine" Width="100px"></asp:Label>
+                    
+                     </asp:TableCell>
+                <asp:TableCell Width="300px">
+                    <asp:DropDownList ID="FacilityDD"   Width="200px" AppendDataBoundItems="true" runat="server" DataSourceID="GembaAuditNodeFormFacilitySource" DataTextField="FacilityName" DataValueField="FacilityID" AutoPostBack="True">
+                <asp:ListItem Selected ="True" Text = "--Select--" Value = ""></asp:ListItem>
+                          </asp:DropDownList>
+                        <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorFacility" ControlToValidate="FacilityDD" runat="server" ForeColor="Red" ErrorMessage="Required" Font-Size="X-Small"></asp:RequiredFieldValidator>
+  
+                </asp:TableCell>
+                 </asp:TableRow><asp:TableRow Height="5"></asp:TableRow>
  <%-- Location --%>   
                  <asp:TableRow Width="400px">    
                 <asp:TableCell Width="100px" >
@@ -35,7 +49,7 @@
                     
                      </asp:TableCell>
                 <asp:TableCell Width="300px">
-                    <asp:DropDownList ID="LocationDD"   Width="200px" AppendDataBoundItems="true" runat="server" DataSourceID="GembaAuditNodeFormLocationSource" DataTextField="LocationName" DataValueField="LocationID">
+                    <asp:DropDownList ID="LocationDD"   Width="200px" AppendDataBoundItems="false" runat="server" DataSourceID="GembaAuditNodeFormLocationSource" DataTextField="LocationName" DataValueField="LocationID">
                 <asp:ListItem Selected = "True" Text = "" Value = ""></asp:ListItem>
                           </asp:DropDownList>
                         <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorLocation" ControlToValidate="LocationDD" runat="server" ForeColor="Red" ErrorMessage="Required" Font-Size="X-Small"></asp:RequiredFieldValidator>
@@ -97,7 +111,7 @@
                 <asp:TableCell Width="100px">
                     <asp:Label ID="Label2" runat="server" Text="Addt. Comments"  TextMode="MultiLine" Width="100px"></asp:Label>
                 </asp:TableCell><asp:TableCell Width="300px">
-                    <asp:TextBox ID="AdditionalCommentsTB" runat="server" Height="200px" Width="250px" TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="AdditionalCommentsTB" runat="server" Height="150px" Width="250px" TextMode="MultiLine"></asp:TextBox>
                 </asp:TableCell></asp:TableRow><asp:TableRow Height="10"></asp:TableRow>
   
             
@@ -530,7 +544,11 @@
         
         
         <br />&nbsp;&nbsp; <br /><br /><br /><br /><br />
-        <asp:SqlDataSource ID="GembaAuditNodeFormLocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectLocation"></asp:SqlDataSource>      
+        <asp:SqlDataSource runat="server" ID="GembaAuditNodeFormFacilitySource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="GembaAuditNodeFormLocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectLocationCascade 'No'"  FilterExpression="FacilityID = '{0}'" >
+                <FilterParameters>
+                    <asp:ControlParameter Name="FacilityID" ControlID="FacilityDD" PropertyName="SelectedValue" />
+                </FilterParameters></asp:SqlDataSource>      
         <asp:SqlDataSource ID="GembaAuditNodeFormShadowResourceSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectGembaShadow"></asp:SqlDataSource>
         
 

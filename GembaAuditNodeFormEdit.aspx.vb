@@ -61,6 +61,7 @@ Partial Class GembaAuditNodeFormEdit
             GembaAuditNodeIDTB.Text = dt.Rows(0)("GembaAuditNodeID").ToString()
             CurrentTimeTB.Text = dt.Rows(0)("Date").ToString()
             LastUpdatedTB.Text = dt.Rows(0)("LastUpdated").ToString()
+            FacilityDD.SelectedValue = dt.Rows(0)("FacilityID").ToString()
             LocationDD.SelectedValue = dt.Rows(0)("LocationID").ToString()
             AuditerTB.Text = dt.Rows(0)("Auditer").ToString()
             AdditionalCommentsTB.Text = dt.Rows(0)("AdditionalComments").ToString()
@@ -129,6 +130,7 @@ Partial Class GembaAuditNodeFormEdit
         con.Open()
 
         Dim GembaAuditNodeID As String = GembaAuditNodeIDTB.Text
+        Dim Facility As String
         Dim Location As String
         Dim Auditer As String
         Dim AdditionalComments As String
@@ -165,6 +167,7 @@ Partial Class GembaAuditNodeFormEdit
 
 
         GembaAuditNodeID = GembaAuditNodeIDTB.Text
+        Facility = FacilityDD.SelectedItem.Value
         Location = LocationDD.SelectedItem.Value
         Auditer = AuditerTB.Text
         AdditionalComments = AdditionalCommentsTB.Text
@@ -193,6 +196,7 @@ Partial Class GembaAuditNodeFormEdit
 
         Dim UpdateString As String = "exec sp_EditGembaAuditNode 
            '" & GembaAuditNodeID & "'
+           ,'" & Facility & "'
            ,'" & Location & "'
            ,'" & AdditionalComments & "'
            ,'" & PS_EmptyBins & "'

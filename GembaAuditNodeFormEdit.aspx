@@ -49,6 +49,20 @@
                     <asp:TextBox ID="LastUpdatedTB" runat="server"  ReadOnly="True" BackColor="#CCCCCC" DataFormatString="{0:d}" Width="100px"></asp:TextBox>
                 </asp:TableCell>
                  </asp:TableRow><asp:TableRow Height="10"></asp:TableRow>
+<%-- Facility --%>   
+                 <asp:TableRow Width="400px">    
+                <asp:TableCell Width="100px" >
+                    <asp:Label ID="Facility" runat="server" Text="Facility" TextMode="MultiLine" Width="100px"></asp:Label>
+                    
+                     </asp:TableCell>
+                <asp:TableCell Width="300px">
+                    <asp:DropDownList ID="FacilityDD"  ReadOnly="True"  Width="200px" AppendDataBoundItems="true" runat="server" DataSourceID="GembaAuditNodeFormFacilitySource" DataTextField="FacilityName" DataValueField="FacilityID"  AutoPostBack="False">
+                
+                          </asp:DropDownList>
+                        <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorFacility" ControlToValidate="FacilityDD" runat="server" ForeColor="Red" ErrorMessage="Required" Font-Size="X-Small"></asp:RequiredFieldValidator>
+  
+                </asp:TableCell>
+                 </asp:TableRow><asp:TableRow Height="5"></asp:TableRow>
 <%-- Location --%>   
                  <asp:TableRow Width="400px">    
                 <asp:TableCell Width="100px" >
@@ -56,8 +70,8 @@
                     
                      </asp:TableCell>
                 <asp:TableCell Width="300px">
-                    <asp:DropDownList ID="LocationDD"   Width="200px" AppendDataBoundItems="true" runat="server" DataSourceID="GembaAuditNodeFormLocationSource" DataTextField="LocationName" DataValueField="LocationID"  AutoPostBack="True">
-                <asp:ListItem Selected = "True" Text = "" Value = ""></asp:ListItem>
+                    <asp:DropDownList ID="LocationDD"  ReadOnly="True"  Width="200px" AppendDataBoundItems="true" runat="server" DataSourceID="GembaAuditNodeFormLocationSource" DataTextField="LocationName" DataValueField="LocationID"  AutoPostBack="False">
+                
                           </asp:DropDownList>
                         <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorLocation" ControlToValidate="LocationDD" runat="server" ForeColor="Red" ErrorMessage="Required" Font-Size="X-Small"></asp:RequiredFieldValidator>
   
@@ -537,7 +551,9 @@
         
         
         
-        <br />&nbsp;&nbsp; <br /><br /><br /><br /><br /><asp:SqlDataSource ID="GembaAuditNodeFormLocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectLocation"></asp:SqlDataSource>      
+        <br />&nbsp;&nbsp; <br /><br /><br /><br /><br />
+        <asp:SqlDataSource ID="GembaAuditNodeFormFacilitySource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="GembaAuditNodeFormLocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectLocation"></asp:SqlDataSource>      
         <asp:SqlDataSource ID="GembaAuditNodeFormShadowResourceSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectGembaShadow"></asp:SqlDataSource>
         
 

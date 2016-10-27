@@ -242,7 +242,7 @@ InFileMaintenance - New ERP # or other item activation steps." />
         <asp:SqlDataSource ID="QCNTypeSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectQCNType '1'"></asp:SqlDataSource>
         <asp:SqlDataSource ID="QCNComplexitySource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectQCNComplexity '1'"></asp:SqlDataSource>
         <asp:SqlDataSource ID="AssignedUserSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="SELECT BlueBinUserID as AssignedUser,LastName + ', ' + FirstName as AssignedFullName FROM [bluebin].[BlueBinUser] WHERE AssignToQCN = 1"></asp:SqlDataSource>
-        <asp:SqlDataSource ID="QCNStatusSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectQCNStatus'1'"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="QCNStatusSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" SelectCommand="exec sp_SelectQCNStatus '1'"></asp:SqlDataSource>
         <asp:SqlDataSource runat="server" ID="FacilityDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
         
     

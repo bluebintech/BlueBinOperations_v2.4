@@ -6,7 +6,30 @@
 <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.simpletip/1.3.1/jquery.simpletip-1.3.1.min.js"></script>
 
 
-
+<script type = "text/javascript">
+    function ConfirmDelete()
+    {
+       var count = document.getElementById("<%=hfCount.ClientID %>").value;
+       var gv = document.getElementById("<%=GridViewQCN.ClientID%>");
+       var chk = gv.getElementsByTagName("input");
+       for(var i=0;i<chk.length;i++)
+       {
+            if(chk[i].checked && chk[i].id.indexOf("chkAll") == -1)
+            {
+                count++;
+            }
+       }
+       if(count == 0)
+       {
+            alert("No records to complete.");
+            return false;
+       }
+       else
+       {
+            return confirm("Are you sure you want to complete these " + count + " records?");
+       }
+    }
+</script>
 
 <script type="text/javascript">
     $(function () {
@@ -60,7 +83,7 @@
             <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
         </asp:DropDownList>
            
-     <asp:SqlDataSource runat="server" ID="AssignedSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="SELECT DISTINCT v.LastName + ', ' + v.FirstName as AssignedUserName FROM qcn.QCN a inner join [bluebin].[BlueBinUser] v on AssignedUserID = v.BlueBinUserID order by 1"></asp:SqlDataSource>
+     <asp:SqlDataSource runat="server" ID="AssignedSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectQCNUser"></asp:SqlDataSource>
  <p>
      <b>QCN Status:</b>&nbsp;&nbsp;<asp:DropDownList ID="QCNStatusSearchDD" AppendDataBoundItems="true" runat="server" DataSourceID="QCNStatusSearchDS" DataTextField="Status" DataValueField="Status">
             <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
@@ -90,11 +113,22 @@
 
 
     <p>
-    <asp:GridView  CssClass="GridViewitem" ID="GridViewQCN" ButtonType="Button"  OnPageIndexChanging="OnPageIndexChanging" OnRowDataBound="OnRowDataBound" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="QCNDatasource" GridLines="Vertical" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="QCNID" PageSize="30">
+    <asp:GridView  CssClass="GridViewitem" ID="GridViewQCN" ButtonType="Button"  OnPageIndexChanging="OnPaging" OnRowDataBound="OnRowDataBound" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="QCNDatasource" GridLines="Vertical" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="QCNID" PageSize="20">
         <AlternatingRowStyle BackColor="#DCDCDC" />
         <Columns>
             <asp:HyperLinkField DataNavigateUrlFields="QCNID" DataNavigateUrlFormatString="QCNFormEdit.aspx?QCNID={0}" Text="Edit" ></asp:HyperLinkField>
+            <asp:TemplateField ItemStyle-HorizontalAlign="Center">
+                <HeaderTemplate>
+                    <asp:Label runat="server" Text="" /><asp:CheckBox ID="chkAll" runat="server"
+                     onclick = "checkAll(this);" Visible="False" />
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <asp:CheckBox ID="chk" runat="server"
+                     onclick = "Check_Click(this)"/>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:BoundField DataField="QCNID" HeaderText="QCNID" InsertVisible="False" ReadOnly="True" SortExpression="QCNID" Visible="False" />
+            
             <asp:BoundField DataField="FacilityID" HeaderText="FacilityID" Visible="False" SortExpression="FacilityID" />
             <asp:BoundField DataField="FacilityName" HeaderText="Facility" SortExpression="FacilityName"  ItemStyle-Wrap="False"/>
             
@@ -125,7 +159,8 @@
             <asp:BoundField DataField="Status" HeaderText="QCN Status" SortExpression="Status" />
             <asp:BoundField DataField="Complexity" HeaderText="CX" SortExpression="Complexity" />
             <asp:BoundField runat="server" DataField="InternalReference" HeaderText="Reference" SortExpression="InternalReference" />
-             <asp:TemplateField ShowHeader="False">
+            
+            <asp:TemplateField ShowHeader="False">
              <ItemTemplate>
             <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Delete" OnClientClick="return confirm('Are you sure you want to delete this entry?');">Delete</asp:LinkButton>             
             </ItemTemplate>
@@ -141,8 +176,13 @@
         <SortedDescendingCellStyle BackColor="#CAC9C9" />
         <SortedDescendingHeaderStyle BackColor="#000065" />
     </asp:GridView>
+        <asp:HiddenField ID="hfCount" runat="server" Value = "0" />
 </p>
+    <p>
+    <asp:Button ID="btnComplete" runat="server" Text="Bulk Complete Checked QCNs"
+        OnClientClick = "return ConfirmDelete();" OnClick="btnComplete_Click" />
 
+    </p>
     <p>
         <asp:ImageButton ID="ImageButton1" runat="Server" ImageUrl="~/img/ExportExcel.gif" OnClick="ExportToExcel" Height="25px" />
     </p>
@@ -151,7 +191,8 @@
     <p>
   
         <asp:SqlDataSource ID="QCNDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
-                SelectCommand="exec sp_SelectQCN @FacilityName,@LocationName,@QCNStatusName,@Completed,@AssignedUserName" DeleteCommand="exec sp_DeleteQCN @QCNID">
+                SelectCommand="exec sp_SelectQCN @FacilityName,@LocationName,@QCNStatusName,@Completed,@AssignedUserName" 
+                DeleteCommand="exec sp_DeleteQCN @QCNID">
             <SelectParameters>
                 <asp:ControlParameter ControlID="AssignedSearchDD" PropertyName ="Text" DefaultValue="%" Name="AssignedUserName" Type="String"></asp:ControlParameter>
                 <asp:ControlParameter ControlID="QCNStatusSearchDD" PropertyName ="Text" DefaultValue="%" Name="QCNStatusName" Type="String"></asp:ControlParameter>

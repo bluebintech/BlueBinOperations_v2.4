@@ -63,6 +63,7 @@ Partial Class GembaAuditNodeForm
         cmd.Connection = con
         con.Open()
 
+        Dim Facility As String
         Dim Location As String
         Dim Auditer As String
         Dim AdditionalComments As String
@@ -101,6 +102,7 @@ Partial Class GembaAuditNodeForm
 
 
         Location = LocationDD.SelectedItem.Value
+        Facility = FacilityDD.SelectedItem.Value
         Auditer = AuditerTB.Text
         AdditionalComments = AdditionalCommentsTB.Text
         PS_Comments = PSCommentsTB.Text
@@ -128,6 +130,7 @@ Partial Class GembaAuditNodeForm
         cmd.CommandText = "
 
                     exec sp_InsertGembaAuditNode
+                    '" & Facility & "',
                     '" & Location & "',
                     '" & Auditer & "',
                     '" & AdditionalComments & "',

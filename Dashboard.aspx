@@ -63,13 +63,13 @@
                             <li><a href="#" runat="server" id="MenuOPConesDashboard" onClick="switchView('Cones Deployed Dashboard')">Cones Dashboard</a></li>
                             <li><a href="#" runat="server" id="MenuOPItemUsage" onClick="switchView('Item Usage and Cost')">Item Usage</a></li>
                             <li class="divider" id="QCNGembaLine" runat="server"></li>
-                            <li><a href="#" runat="server" id="MenuOPQCNDetail" onClick="switchView('QCN Dashboard')">QCN Dashboard</a></li>
-                            <li><a href="#" runat="server" id="MenuOPQCNDashboard" onClick="switchView('QCN Detail')">QCN Detail</a></li>
+                            <li><a href="#" runat="server" id="MenuOPQCNDashboard" onClick="switchView('QCN Dashboard')">QCN Dashboard</a></li>
+                            <li><a href="#" runat="server" id="MenuOPQCNDetail" onClick="switchView('QCN Detail')">QCN Detail</a></li>
                             <li><a href="#" runat="server" id="MenuOPGembaDashboard" onClick="switchView('Gemba Dashboard')">Gemba Dashboard</a></li>
                             <li class="divider" id ="TSLine" runat="server"></li>
-                            <li><a href="#" runat="server" id="MenuOPTSAvg" onClick="switchView('Time Study Averages')">Time Study Averages'</a></li>
-                            <li><a href="#" runat="server" id="MenuOPTSLocation" onClick="switchView('Time Study Location Times')">Time Study Location Times</a></li>
-                            <li><a href="#" runat="server" id="MenuOPTSFTE" onClick="switchView('Time Study FTE Planner')">Time Study FTE Planner</a></li>
+                            <li><a href="#" runat="server" id="MenuOPTSAT" onClick="switchView('Time Study Activity Times')">Time Study Activity Times</a></li>
+                            <li><a href="#" runat="server" id="MenuOPTSAverages" onClick="switchView('Time Study Averages')">Time Study Averages</a></li>
+                            <li><a href="#" runat="server" id="MenuOPTSPlanner" onClick="switchView('Time Study Planner')">Time Study Planner</a></li>
                             <li><a href="#" runat="server" id="MenuOPTSDashboard" onClick="switchView('Time Study Dashboard')">Time Study Dashboard</a></li>
               </ul>
             </li>

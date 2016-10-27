@@ -157,10 +157,10 @@ Public Class Dashboard
             Dim OPQCNDetail As String
             Dim OPGembaDashboard As String
             Dim OPItemUsage As String
-            Dim OPTSAvg As String
-            Dim OPTSLocation As String
-            Dim OPTSFTE As String
+            Dim OPTSAT As String
+            Dim OPTSAverages As String
             Dim OPTSDashboard As String
+            Dim OPTSPlanner As String
 
             Dim SrcBuyerPerformance As String
             Dim SrcSpecialPerformance As String
@@ -300,14 +300,15 @@ Public Class Dashboard
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Item Usage")
                     OPItemUsage = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Activity Times")
+                    OPTSAT = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Averages")
-                    OPTSAvg = Convert.ToString(cmdmenu.ExecuteScalar())
+                    OPTSAverages = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
-                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Location Times")
-                    OPTSLocation = Convert.ToString(cmdmenu.ExecuteScalar())
-                    cmdmenu.Parameters.Clear()
-                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study FTE Planner")
-                    OPTSFTE = Convert.ToString(cmdmenu.ExecuteScalar())
+
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Planner")
+                    OPTSPlanner = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Time Study Dashboard")
                     OPTSDashboard = Convert.ToString(cmdmenu.ExecuteScalar())
@@ -519,22 +520,23 @@ Public Class Dashboard
                 MenuOPItemUsage.Visible = False
             End If
 
-            If OPTSAvg = "Yes" Then
-                MenuOPTSAvg.Visible = True
+            If OPTSAT = "Yes" Then
+                MenuOPTSAT.Visible = True
             Else
-                MenuOPTSAvg.Visible = False
+                MenuOPTSAT.Visible = False
             End If
 
-            If OPTSLocation = "Yes" Then
-                MenuOPTSLocation.Visible = True
+            If OPTSAverages = "Yes" Then
+                MenuOPTSAverages.Visible = True
             Else
-                MenuOPTSLocation.Visible = False
+                MenuOPTSAverages.Visible = False
             End If
 
-            If OPTSFTE = "Yes" Then
-                MenuOPTSFTE.Visible = True
+
+            If OPTSPlanner = "Yes" Then
+                MenuOPTSPlanner.Visible = True
             Else
-                MenuOPTSFTE.Visible = False
+                MenuOPTSPlanner.Visible = False
             End If
 
             If OPTSDashboard = "Yes" Then
@@ -543,7 +545,7 @@ Public Class Dashboard
                 MenuOPTSDashboard.Visible = False
             End If
 
-            If OPTSFTE = "Yes" Or OPTSAvg = "Yes" Or OPTSLocation = "Yes" Or OPTSDashboard = "Yes" Then
+            If OPTSPlanner = "Yes" Or OPTSAT = "Yes" Or OPTSAverages = "Yes" Or OPTSDashboard = "Yes" Then
                 TSLine.Visible = True
             Else
                 TSLine.Visible = False

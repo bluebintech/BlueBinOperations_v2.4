@@ -19,12 +19,19 @@
             <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
         </asp:DropDownList>
            
-     <asp:SqlDataSource runat="server" ID="AuditerSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="SELECT DISTINCT AuditerUserID,u.LastName + ', ' + u.FirstName as Auditer FROM [gemba].[GembaAuditNode]  inner join [bluebin].[BlueBinUser] u on AuditerUserID = u.BlueBinUserID order by 2"></asp:SqlDataSource>
+     <asp:SqlDataSource runat="server" ID="AuditerSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectGembaAuditNodeUser"></asp:SqlDataSource>
     <p>
-     <b>Location:&nbsp;</b><asp:DropDownList ID="SearchList1" AppendDataBoundItems="true" runat="server" DataSourceID="SqlDataSource1" DataTextField="LocationName" DataValueField="LocationName">
+     <b>Facility:&nbsp;&nbsp;&nbsp;&nbsp;</b><asp:DropDownList ID="FacilitySearchDD" AppendDataBoundItems="true" runat="server" DataSourceID="FacilitySearchDS" DataTextField="FacilityName" DataValueField="FacilityName">
             <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
         </asp:DropDownList>
-        <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="SELECT DISTINCT case when a.LocationID = a.LocationName then a.LocationID else a.LocationID + ' - ' + a.[LocationName] end as LocationName FROM bluebin.[DimLocation] a inner join gemba.GembaAuditNode b on rtrim(a.LocationID) = rtrim(b.LocationID) where b.Active = 1 and a.BlueBinFlag = 1  order by 1"></asp:SqlDataSource>
+        <asp:SqlDataSource runat="server" ID="FacilitySearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectGembaAuditNodeFacility"></asp:SqlDataSource>
+
+</p> 
+    <p>
+     <b>Location:&nbsp;</b><asp:DropDownList ID="LocationSearchDD" AppendDataBoundItems="true" runat="server" DataSourceID="LocationSearchDS" DataTextField="LocationName" DataValueField="LocationName">
+            <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
+        </asp:DropDownList>
+        <asp:SqlDataSource runat="server" ID="LocationSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectGembaAuditNodeLocation"></asp:SqlDataSource>
         &nbsp;<asp:Button ID="SearchButton" runat="server" Text="Search" />
 
 </p> 
@@ -36,6 +43,7 @@
             <asp:BoundField DataField="GembaAuditNodeID" HeaderText="GembaAuditNodeID" InsertVisible="False" ReadOnly="True" SortExpression="GembaAuditNodeID" Visible="False" />
             <asp:BoundField DataField="Date" HeaderText="Audit Date" SortExpression="Date" DataFormatString="{0:d}" />
             <asp:BoundField DataField="LastUpdated" HeaderText="Last Updated" SortExpression="LastUpdated"  Visible="False" DataFormatString="{0:d}" />
+            <asp:BoundField DataField="FacilityName" HeaderText="Facility" SortExpression="FacilityName" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="LocationName" HeaderText="Node" SortExpression="LocationName" ItemStyle-HorizontalAlign="Left" />
             <asp:BoundField DataField="Auditer" HeaderText="Auditer" ReadOnly="True" SortExpression="Auditer" />
             <asp:BoundField DataField="AuditerLogin" HeaderText="AuditerLogin" ReadOnly="True" SortExpression="AuditerLogin"  Visible="False" />
@@ -89,10 +97,11 @@
  </asp:Table>
 
 <asp:SqlDataSource ID="GembaAuditNodeSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
-    SelectCommand="exec sp_SelectGembaAuditNode @LocationName,@Auditer" DeleteCommand="exec sp_DeleteGembaAuditNode @GembaAuditNodeID" >
+    SelectCommand="exec sp_SelectGembaAuditNode @FacilityName,@LocationName,@Auditer" DeleteCommand="exec sp_DeleteGembaAuditNode @GembaAuditNodeID" >
             <SelectParameters>
                 <asp:ControlParameter ControlID="AuditerSearchDD" PropertyName ="Text" DefaultValue="%" Name="Auditer" Type="String"></asp:ControlParameter>
-                <asp:ControlParameter ControlID="SearchList1" PropertyName="Text" DefaultValue="%" Name="LocationName"></asp:ControlParameter>
+                <asp:ControlParameter ControlID="LocationSearchDD" PropertyName="Text" DefaultValue="%" Name="LocationName"></asp:ControlParameter>
+                <asp:ControlParameter ControlID="FacilitySearchDD" PropertyName="Text" DefaultValue="%" Name="FacilityName"></asp:ControlParameter>
             </SelectParameters>
 
 

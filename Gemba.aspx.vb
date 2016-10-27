@@ -63,12 +63,12 @@ Partial Class Gemba
     Protected Sub OnRowDataBoundNode(sender As Object, e As GridViewRowEventArgs)
         If e.Row.RowType = DataControlRowType.DataRow Then
 
-            Dim cellAdditionalCommentsText As TableCell = e.Row.Cells(13)
+            Dim cellAdditionalCommentsText As TableCell = e.Row.Cells(14)
             cellAdditionalCommentsText.ToolTip = TryCast(e.Row.DataItem, DataRowView)("AdditionalCommentsText").ToString()
 
         End If
         If e.Row.RowType = DataControlRowType.DataRow Then
-            Dim stagecell As TableCell = e.Row.Cells(9)
+            Dim stagecell As TableCell = e.Row.Cells(10)
             Dim stagescore As Integer = Integer.Parse(stagecell.Text)
             If stagescore = 0 Then
                 stagecell.BackColor = Color.Red
