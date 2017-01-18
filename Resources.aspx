@@ -72,13 +72,13 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Login" SortExpression="Login">
                     <EditItemTemplate>
-                        <asp:TextBox runat="server" Text='<%# Bind("Login") %>' ID="LoginEdit" Columns="5"></asp:TextBox><asp:RequiredFieldValidator ValidationGroup="Edit" ID="RequiredFieldValidatorLogin" runat="server" ControlToValidate="LoginEdit" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator>
+                        <asp:TextBox runat="server" Text='<%# Bind("Login") %>' ID="LoginEdit" Columns="5"></asp:TextBox>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label runat="server" Text='<%# Bind("Login") %>' ID="Label5"></asp:Label>
                     </ItemTemplate>
 
-                    <FooterTemplate><asp:TextBox runat="server" ID="Login"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorLogin" runat="server" ControlToValidate="Login" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator></FooterTemplate>
+                    <FooterTemplate><asp:TextBox runat="server" ID="Login"></asp:TextBox></FooterTemplate>
 
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Email" SortExpression="Email">
@@ -93,13 +93,15 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Title" SortExpression="Title">
                     <EditItemTemplate>
-                        <asp:TextBox runat="server" Text='<%# Bind("Title") %>' ID="TextBox6" Columns="5"></asp:TextBox>
+                        <asp:TextBox runat="server" Text='<%# Bind("Title") %>' ID="TitleEdit" Columns="5"></asp:TextBox><asp:RequiredFieldValidator ValidationGroup="Edit" ID="RequiredFieldValidatorLogin" runat="server" ControlToValidate="TitleEdit" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:Label runat="server" Text='<%# Bind("Title") %>' ID="Label7"></asp:Label>
                     </ItemTemplate>
 
-                    <FooterTemplate><asp:TextBox runat="server" ID="Title" Columns="5"></asp:TextBox></FooterTemplate>
+                    <FooterTemplate>
+                        <asp:TextBox runat="server" ID="Title" Columns="5"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorLogin" runat="server" ControlToValidate="Title" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator>
+                    </FooterTemplate>
 
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Phone" SortExpression="Phone">

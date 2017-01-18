@@ -35,7 +35,7 @@
         <asp:Label runat="server" id="HiddenGroupConfig" Visible="False"><h3>Time Study Group Configuration</h3></asp:Label>
     </asp:TableCell></asp:TableRow>
 
-    <%-- Entry Forms --%>
+    <%-- Entry Forms Studies --%>
     <asp:TableRow>
         <asp:TableCell>
           <div class="jumbotronmini" id="TimeStudyUtility" runat="server">
@@ -133,16 +133,10 @@
                                         <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorStop" ControlToValidate="StopTimeTB" runat="server" ForeColor="Red"  ErrorMessage="*" Font-Size="X-Small" ValidationGroup="MainGroup"></asp:RequiredFieldValidator>
                                    </asp:TableCell>
                              </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
-                             <asp:TableRow ID="GroupConfigRow" runat="server">
-                                  <asp:TableCell><b>Group Name:</b>&nbsp;<asp:Image runat="server" ImageUrl="img/info.png" Height="12" Width="12" ImageAlign="Middle" ToolTip="Please Enter the Group Name for this Location.  If possible, match to an existing" />&nbsp;
-                                        <asp:TextBox ID="GroupConfigTB" runat="server" Width="30"></asp:TextBox> 
-                                        <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorGroupName" ControlToValidate="GroupTB" runat="server" ForeColor="Red"  ErrorMessage="*" Font-Size="X-Small"></asp:RequiredFieldValidator>
-                                        </asp:TableCell>
-                                <asp:TableCell Width="15"></asp:TableCell>
-                                      </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
+                             
                             <asp:TableRow>
                                 <asp:TableCell>
-                                    <b>Description:</b>&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox runat="server" TextMode="MultiLine" ID="CommentsTB" Height="40" Width="200" MaxLength="255"></asp:TextBox>
+                                    <b>Comments:</b>&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox runat="server" TextMode="MultiLine" ID="CommentsTB" Height="70" Width="200" MaxLength="255"></asp:TextBox>
                                 </asp:TableCell>
                             </asp:TableRow>
                         </asp:Table>
@@ -154,12 +148,83 @@
                     <asp:ImageButton ID="StageScanSubmitB" runat="server" OnClientClick="StageScanSubmitB_Click" ImageUrl="~/img/bbtimestudy.png"></asp:ImageButton>
                     <asp:ImageButton ID="BinFillSubmitB" runat="server" OnClientClick="BinFillSubmitB_Click" ImageUrl="~/img/bbtimestudy.png"></asp:ImageButton>
                     <asp:ImageButton ID="StockOutSubmitB" runat="server" OnClientClick="StockOutSubmitB_Click" ImageUrl="~/img/bbtimestudy.png"></asp:ImageButton>
-                    <asp:ImageButton ID="GroupConfigSubmitB" runat="server" OnClientClick="GroupConfigSubmitB_Click" ImageUrl="~/img/bbtimestudy.png"></asp:ImageButton>
+                    
                 </asp:TableCell>
         </asp:TableRow>
         <asp:TableRow>
             <asp:TableCell>
                   <asp:Label ID="TimeStudyMessageL" runat="server" Text ="" Font-Size="Smaller" Font-Bold="True" ForeColor="Red"  />                 
+            </asp:TableCell>
+            </asp:TableRow>
+
+           </asp:Table></div>                     
+      </asp:TableCell>
+
+    </asp:TableRow>  
+<%-- END--%>
+
+<%-- Entry Forms Groups --%>
+    <asp:TableRow>
+        <asp:TableCell>
+          <div class="jumbotronmini" id="GroupConfigUtility" runat="server">
+          <asp:Table runat="server" >
+        <asp:TableRow>
+          <asp:TableCell>
+              <asp:Table runat="server">
+                  <asp:TableRow>
+
+          <asp:TableCell><b>Facility:</b>&nbsp;&nbsp;
+                <asp:DropDownList ID="GroupFacilityDD"  AppendDataBoundItems="true" runat="server" DataSourceID="GroupFacilityDataSource" DataTextField="FacilityName" DataValueField="FacilityID"  AutoPostBack="True">
+                <asp:ListItem Text = "--Select--" Value = ""></asp:ListItem>
+                </asp:DropDownList>
+                     <asp:SqlDataSource runat="server" ID="GroupFacilityDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
+                <%--<asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorGroupFacility" ControlToValidate="GroupFacilityDD" runat="server" ForeColor="Red"  ErrorMessage="*" Font-Size="X-Small" ValidationGroup="GroupConfig"></asp:RequiredFieldValidator>--%>
+                </asp:TableCell>
+         <asp:TableCell Width="15"></asp:TableCell>
+            </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
+              
+          <asp:TableRow>
+          <asp:TableCell><b>Location:</b>
+                <asp:DropDownList ID="GroupLocationDD"  AppendDataBoundItems="false" runat="server" DataSourceID="GroupLocationSource" DataTextField="LocationName" DataValueField="LocationID">
+                <asp:ListItem Selected = "True" Text = "--Select--" Value = ""></asp:ListItem>
+                </asp:DropDownList>
+                    <asp:SqlDataSource runat="server" ID="GroupLocationSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>'
+                        SelectCommand="exec sp_SelectLocationCascade 'No'"  FilterExpression="FacilityID = '{0}'" >
+                <FilterParameters>
+                    <asp:ControlParameter Name="FacilityID" ControlID="GroupFacilityDD" PropertyName="SelectedValue" />
+                </FilterParameters>
+                    </asp:SqlDataSource>
+                <%--<asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorGroupLocation" ControlToValidate="GroupLocationDD" runat="server" ForeColor="Red"  ErrorMessage="*" Font-Size="X-Small" ValidationGroup="GroupConfig"></asp:RequiredFieldValidator>--%>
+                </asp:TableCell>
+         <asp:TableCell Width="15"></asp:TableCell>
+              </asp:TableRow>
+        </asp:Table></asp:TableCell>
+            <asp:TableCell Width="15"></asp:TableCell>
+                <asp:TableCell>
+                        <asp:Table runat="server">
+                             <asp:TableRow ID="GroupConfigRow" runat="server">
+                                  <asp:TableCell><b>Group Name:</b>&nbsp;<asp:Image runat="server" ImageUrl="img/info.png" Height="12" Width="12" ImageAlign="Middle" ToolTip="Please Enter the Group Name for this Location.  If possible, match to an existing" />&nbsp;
+                                        <asp:TextBox ID="GroupConfigTB" runat="server" Width="180"></asp:TextBox> 
+                                        <%--<asp:RequiredFieldValidator Display="Dynamic" ID="RequiredFieldValidatorGroupName" ControlToValidate="GroupConfigTB" runat="server" ForeColor="Red"  ErrorMessage="*" Font-Size="X-Small" ValidationGroup="GroupConfig"></asp:RequiredFieldValidator>--%>
+                                        </asp:TableCell>
+                                <asp:TableCell Width="15"></asp:TableCell>
+                                      </asp:TableRow><asp:TableRow Height ="5"></asp:TableRow>
+                            <asp:TableRow ID="DescriptionRow" runat="server">
+                                <asp:TableCell>
+                                    <b>Description:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:TextBox runat="server" TextMode="MultiLine" ID="DescriptionTB" Height="40" Width="200" MaxLength="255"></asp:TextBox>
+                                </asp:TableCell>
+                            </asp:TableRow>
+                        </asp:Table>
+
+                </asp:TableCell>
+                <asp:TableCell Width="25"></asp:TableCell>
+                <asp:TableCell>
+                    <asp:ImageButton ID="GroupConfigSubmitB" runat="server" OnClientClick="GroupConfigSubmitB_Click" ImageUrl="~/img/bbtimestudy.png"></asp:ImageButton>
+                </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow>
+            <asp:TableCell>
+                  <asp:Label ID="GroupConfigMessageL" runat="server" Text ="" Font-Size="Smaller" Font-Bold="True" ForeColor="Red"  />                 
             </asp:TableCell>
             </asp:TableRow>
 
@@ -211,15 +276,6 @@
            
                             </p> 
                     <p>
-                    <b>Group Name:</b>&nbsp;&nbsp;
-                        <asp:DropDownList ID="GroupNameS" AppendDataBoundItems="true" runat="server" DataSourceID="GroupNameDS" DataTextField="GroupName" DataValueField="GroupName">
-                                    <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
-                                </asp:DropDownList>
-           
-                        <asp:SqlDataSource runat="server" ID="GroupNameDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectTimeStudyGroupNames"></asp:SqlDataSource>
-           
-                            </p> 
-                    <p>
                         <asp:Button ID="SearchButton"  runat="server" Text="Search" /> 
                     </p> 
                     
@@ -230,7 +286,49 @@
                         </asp:Table>
     </asp:TableCell></asp:TableRow>
 
+<%-- Search Boxes Group Config --%>
+<asp:TableRow Height="10"></asp:TableRow>
+    <asp:TableRow><asp:TableCell>
+        <asp:Table runat="server" ID="SearchTableGroupConfig">
+                <asp:TableRow>
+                <asp:TableCell>
+                    <p>
+                    <b>Facility:</b>&nbsp;
+                        <asp:DropDownList ID="FacilityGroupS" AppendDataBoundItems="true" runat="server" DataSourceID="FacilityGroupDS" DataTextField="FacilityName" DataValueField="FacilityName">
+                                    <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
+                                </asp:DropDownList>
+           
+                             <asp:SqlDataSource runat="server" ID="FacilityGroupDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
+                     </p>   
+                    <p>
+                    <b>Location:</b>&nbsp;
+                        <asp:DropDownList ID="LocationGroupS" AppendDataBoundItems="true" runat="server" DataSourceID="LocationGroupDS" DataTextField="LocationName" DataValueField="LocationName">
+                                    <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
+                                </asp:DropDownList>
+           
+                             <asp:SqlDataSource runat="server" ID="LocationGroupDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectLocation"></asp:SqlDataSource>
+                        
+     
+                            </p>
+                    <p>
+                    <b>Group Name:</b>&nbsp;&nbsp;
+                        <asp:DropDownList ID="GroupNameS" AppendDataBoundItems="true" runat="server" DataSourceID="GroupNameDS" DataTextField="GroupName" DataValueField="GroupName">
+                                    <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
+                                </asp:DropDownList>
+           
+                        <asp:SqlDataSource runat="server" ID="GroupNameDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectTimeStudyGroupNames"></asp:SqlDataSource>
+           
+                            </p> 
+                    <p>
+                        <asp:Button ID="SearchButtonGroupConfig"  runat="server" Text="Search" /> 
+                    </p> 
+                    
 
+
+                </asp:TableCell>
+                </asp:TableRow>
+                        </asp:Table>
+    </asp:TableCell></asp:TableRow>
 
 
 
@@ -452,25 +550,25 @@
         <asp:TableRow>
         <asp:TableCell Width="500px"  >
 
-        <asp:GridView  CssClass="GridViewitem" ID="GridViewGroupConfig" ButtonType="Button" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="GroupConfigDS" GridLines="Vertical" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="TimeStudyStockOutID" PageSize="30">
+        <asp:GridView  CssClass="GridViewitem" ID="GridViewGroupConfig" ButtonType="Button" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="GroupConfigDS" GridLines="Vertical" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="TimeStudyGroupID" PageSize="30">
         <AlternatingRowStyle BackColor="#DCDCDC" />
         <Columns>
             <asp:TemplateField ShowHeader="False">
                     <EditItemTemplate>
-                        <asp:Button runat="server" Text="Update" CommandName="Update" CausesValidation="True" ValidationGroup="Edit" ID="GroupConfigUpdate"></asp:Button>&nbsp;<asp:Button runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" ID="GroupConfigCancel"></asp:Button>
+                        <asp:Button runat="server" Text="Update" CommandName="Update" CausesValidation="True" ID="GroupConfigUpdate"></asp:Button>&nbsp;<asp:Button runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" ID="GroupConfigCancel"></asp:Button>
                     </EditItemTemplate>
                     <ItemTemplate>
                         <asp:LinkButton runat="server" Text="Edit" CommandName="Edit" CausesValidation="False" ID="GroupConfigEdit"></asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
-            <asp:TemplateField HeaderText="TimeStudyGroupID" SortExpression="TimeStudyGroupID">
+            <asp:TemplateField HeaderText="TimeStudyGroupID" SortExpression="TimeStudyGroupID" ShowHeader="False" Visible="False">
                     <ItemTemplate>
                         <asp:Label runat="server" Text='<%# Bind("TimeStudyGroupID") %>' ID="TimeStudyGroupIDLI" Visible="False"></asp:Label>
                     </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="FacilityName" SortExpression="FacilityName">
                     <ItemTemplate>
-                        <asp:Label runat="server" Text='<%# Bind("GFacilityName") %>' ID="FacilityNameLI"></asp:Label>
+                        <asp:Label runat="server" Text='<%# Bind("FacilityName") %>' ID="FacilityNameLI"></asp:Label>
                     </ItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="LocationID" SortExpression="LocationID">
@@ -501,7 +599,12 @@
                         <asp:Label runat="server" Text='<%# Bind("Description") %>' ID="DescriptionLI"></asp:Label>
                     </ItemTemplate>
              </asp:TemplateField>
-             <asp:BoundField DataField="DateCreated" HeaderText="Created" SortExpression="DateCreated" DataFormatString="{0:d}"/>
+             <asp:TemplateField HeaderText="Created" SortExpression="DateCreated">
+                    <ItemTemplate>
+                        <asp:Label runat="server" Text='<%# Bind("DateCreated") %>' ID="DateCreatedLI"  DataFormatString="{0:d}"></asp:Label>
+                    </ItemTemplate>
+            </asp:TemplateField>
+            
             <asp:TemplateField ShowHeader="False">
              <ItemTemplate>
             <asp:LinkButton ID="GroupConfigLBD" runat="server" CommandName="Delete" OnClientClick="return confirm('Are you sure you want to delete this entry?');">Delete</asp:LinkButton>             
@@ -624,8 +727,8 @@
                 <asp:Parameter Name="Description"></asp:Parameter>
             </UpdateParameters>
             <SelectParameters>
-                <asp:ControlParameter ControlID="LocationS" PropertyName ="Text" DefaultValue="%" Name="LocationName" Type="String"></asp:ControlParameter>
-                <asp:ControlParameter ControlID="FacilityS" PropertyName ="Text" DefaultValue="%" Name="FacilityName" Type="String"></asp:ControlParameter>
+                <asp:ControlParameter ControlID="LocationGroupS" PropertyName ="Text" DefaultValue="%" Name="LocationName" Type="String"></asp:ControlParameter>
+                <asp:ControlParameter ControlID="FacilityGroupS" PropertyName ="Text" DefaultValue="%" Name="FacilityName" Type="String"></asp:ControlParameter>
                 <asp:ControlParameter ControlID="GroupNameS" PropertyName ="Text" DefaultValue="%" Name="GroupName" Type="String"></asp:ControlParameter>
             </SelectParameters>
             <DeleteParameters>

@@ -66,6 +66,7 @@
                             <li><a href="#" runat="server" id="MenuOPQCNDashboard" onClick="switchView('QCN Dashboard')">QCN Dashboard</a></li>
                             <li><a href="#" runat="server" id="MenuOPQCNDetail" onClick="switchView('QCN Detail')">QCN Detail</a></li>
                             <li><a href="#" runat="server" id="MenuOPGembaDashboard" onClick="switchView('Gemba Dashboard')">Gemba Dashboard</a></li>
+                            <li><a href="#" runat="server" id="MenuOPGembaAuditor" onClick="switchView('Gemba Auditor Details')">Gemba Auditor Details</a></li>
                             <li class="divider" id ="TSLine" runat="server"></li>
                             <li><a href="#" runat="server" id="MenuOPTSAT" onClick="switchView('Time Study Activity Times')">Time Study Activity Times</a></li>
                             <li><a href="#" runat="server" id="MenuOPTSAverages" onClick="switchView('Time Study Averages')">Time Study Averages</a></li>

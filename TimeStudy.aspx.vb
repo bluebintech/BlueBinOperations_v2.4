@@ -12,8 +12,58 @@ Partial Class TimeStudy
     Dim CreatorUserLogin As String = Page.User.Identity.Name.ToString()
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As EventArgs)
+        If Me.Page.User.Identity.IsAuthenticated Then
+            Dim UserLogin As String = Page.User.Identity.Name.ToString().ToLower()
+            Dim UserGroupConfig As String
+            Dim MenuGroupConfig As String
+
+            Dim constr As String = ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString
+
+            Using conroles As New SqlConnection(constr)
+                Using cmdadmin As New SqlCommand("sp_ValidateBlueBinRole")
+                    cmdadmin.CommandType = CommandType.StoredProcedure
+                    cmdadmin.Connection = conroles
+                    conroles.Open()
+                    'cmd.ExecuteNonQuery()
+                    'command.Parameters["@id"].Value = rowUserID
+                    'UserDocumentUplaod Utility
+                    cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
+                    cmdadmin.Parameters.AddWithValue("@OpName", "TimeStudy-GroupConfig")
+                    UserGroupConfig = Convert.ToString(cmdadmin.ExecuteScalar())
+
+                    conroles.Close()
+                End Using
+
+
+            End Using
+
+            Using conmenu As New SqlConnection(constr)
+                Using cmdmenu As New SqlCommand("sp_ValidateMenus")
+                    cmdmenu.CommandType = CommandType.StoredProcedure
+                    cmdmenu.Connection = conmenu
+                    conmenu.Open()
+
+                    'cmd.ExecuteNonQuery()
+                    'MENU-TimeStudy-GroupConfig
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "TimeStudy-GroupConfig")
+                    MenuGroupConfig = Convert.ToString(cmdmenu.ExecuteScalar())
+
+                    conmenu.Close()
+                End Using
+            End Using
+
+            If UserGroupConfig = "No" Or MenuGroupConfig = "No" Then
+                GroupConfigB.Visible = False
+            Else
+                GroupConfigB.Visible = True
+            End If
+
+
+        End If
+
         If Not Page.IsPostBack() Then
             SearchTable.Visible = True
+            SearchTableGroupConfig.Visible = False
             TimeStudyMessageL.Text = ""
             SKUsTB.Text = ""
             StartTimeTB.Text = ""
@@ -25,6 +75,8 @@ Partial Class TimeStudy
             StockOutProcessDD.SelectedValue = ""
             TravelLocationDD.SelectedValue = ""
             ServiceTechDD.SelectedValue = ""
+            GroupConfigUtility.Visible = False
+            TimeStudyUtility.Visible = True
 
             GridViewNodeService.DataBind()
             GridViewNodeService.Visible = True
@@ -47,11 +99,19 @@ Partial Class TimeStudy
             StockOutProcessRow.Visible = False
             TravelLocationRow.Visible = True
             LocationRow.Visible = True
+
+            GridViewGroupConfig.Visible = False
+            HiddenGroupConfig.Visible = False
+            GroupConfigSubmitB.Visible = False
+            GroupConfigRow.Visible = False
+            DescriptionRow.Visible = False
+
         End If
     End Sub
 
     Protected Sub StageScanB_Click(sender As Object, e As EventArgs) Handles StageScanB.Click
         SearchTable.Visible = True
+        SearchTableGroupConfig.Visible = False
         TimeStudyMessageL.Text = ""
         SKUsTB.Text = ""
         StartTimeTB.Text = ""
@@ -63,6 +123,8 @@ Partial Class TimeStudy
         StockOutProcessDD.SelectedValue = ""
         TravelLocationDD.SelectedValue = ""
         ServiceTechDD.SelectedValue = ""
+        GroupConfigUtility.Visible = False
+        TimeStudyUtility.Visible = True
 
         GridViewNodeService.Visible = False
         hiddenNodeService.Visible = False
@@ -85,6 +147,11 @@ Partial Class TimeStudy
         StockOutProcessRow.Visible = False
         TravelLocationRow.Visible = False
         LocationRow.Visible = True
+        GridViewGroupConfig.Visible = False
+        HiddenGroupConfig.Visible = False
+        GroupConfigSubmitB.Visible = False
+        GroupConfigRow.Visible = False
+        DescriptionRow.Visible = False
     End Sub
     'Protected Sub StageScanB2_Click(sender As Object, e As EventArgs) Handles StageScanB2.Click
     '    Response.Redirect("~/TimeStudyStageScan")
@@ -92,6 +159,7 @@ Partial Class TimeStudy
 
     Protected Sub StockOutB_Click(sender As Object, e As EventArgs) Handles StockOutB.Click
         SearchTable.Visible = True
+        SearchTableGroupConfig.Visible = False
         TimeStudyMessageL.Text = ""
         SKUsTB.Text = ""
         StartTimeTB.Text = ""
@@ -103,6 +171,8 @@ Partial Class TimeStudy
         StockOutProcessDD.SelectedValue = ""
         TravelLocationDD.SelectedValue = ""
         ServiceTechDD.SelectedValue = ""
+        GroupConfigUtility.Visible = False
+        TimeStudyUtility.Visible = True
 
         GridViewNodeService.Visible = False
         hiddenNodeService.Visible = False
@@ -125,6 +195,11 @@ Partial Class TimeStudy
         StockOutProcessRow.Visible = True
         TravelLocationRow.Visible = False
         LocationRow.Visible = False
+        GridViewGroupConfig.Visible = False
+        HiddenGroupConfig.Visible = False
+        GroupConfigSubmitB.Visible = False
+        GroupConfigRow.Visible = False
+        DescriptionRow.Visible = False
     End Sub
     'Protected Sub StockOutB2_Click(sender As Object, e As EventArgs) Handles StockOutB2.Click
     '    Response.Redirect("~/TimeStudyStockOut")
@@ -132,6 +207,7 @@ Partial Class TimeStudy
 
     Protected Sub BinFillB_Click(sender As Object, e As EventArgs) Handles BinFillB.Click
         SearchTable.Visible = True
+        SearchTableGroupConfig.Visible = False
         TimeStudyMessageL.Text = ""
         SKUsTB.Text = ""
         StartTimeTB.Text = ""
@@ -143,6 +219,8 @@ Partial Class TimeStudy
         StockOutProcessDD.SelectedValue = ""
         TravelLocationDD.SelectedValue = ""
         ServiceTechDD.SelectedValue = ""
+        GroupConfigUtility.Visible = False
+        TimeStudyUtility.Visible = True
 
         GridViewNodeService.Visible = False
         hiddenNodeService.Visible = False
@@ -165,6 +243,11 @@ Partial Class TimeStudy
         StockOutProcessRow.Visible = False
         TravelLocationRow.Visible = False
         LocationRow.Visible = True
+        GridViewGroupConfig.Visible = False
+        HiddenGroupConfig.Visible = False
+        GroupConfigSubmitB.Visible = False
+        GroupConfigRow.Visible = False
+        DescriptionRow.Visible = False
     End Sub
     'Protected Sub BinFillB2_Click(sender As Object, e As EventArgs) Handles BinFillB2.Click
     '    Response.Redirect("~/TimeStudyBinFill")
@@ -172,6 +255,7 @@ Partial Class TimeStudy
 
     Protected Sub NodeServiceB_Click(sender As Object, e As EventArgs) Handles NodeServiceB.Click
         SearchTable.Visible = True
+        SearchTableGroupConfig.Visible = False
         TimeStudyMessageL.Text = ""
         SKUsTB.Text = ""
         StartTimeTB.Text = ""
@@ -183,6 +267,8 @@ Partial Class TimeStudy
         StockOutProcessDD.SelectedValue = ""
         TravelLocationDD.SelectedValue = ""
         ServiceTechDD.SelectedValue = ""
+        GroupConfigUtility.Visible = False
+        TimeStudyUtility.Visible = True
 
         GridViewNodeService.DataBind()
         GridViewNodeService.Visible = True
@@ -205,12 +291,70 @@ Partial Class TimeStudy
         StockOutProcessRow.Visible = False
         TravelLocationRow.Visible = True
         LocationRow.Visible = True
+        GridViewGroupConfig.Visible = False
+        HiddenGroupConfig.Visible = False
+        GroupConfigSubmitB.Visible = False
+        GroupConfigRow.Visible = False
+        DescriptionRow.Visible = False
+    End Sub
+
+    Protected Sub GroupConfigB_Click(sender As Object, e As EventArgs) Handles GroupConfigB.Click
+        SearchTable.Visible = False
+        SearchTableGroupConfig.Visible = True
+        TimeStudyMessageL.Text = ""
+        SKUsTB.Text = ""
+        StartTimeTB.Text = ""
+        StopTimeTB.Text = ""
+        CommentsTB.Text = ""
+        FacilityDD.SelectedValue = ""
+        LocationDD.SelectedValue = ""
+        NodeServiceProcessDD.SelectedValue = ""
+        StockOutProcessDD.SelectedValue = ""
+        TravelLocationDD.SelectedValue = ""
+        ServiceTechDD.SelectedValue = ""
+        GroupConfigUtility.Visible = True
+        TimeStudyUtility.Visible = False
+
+        GridViewNodeService.Visible = False
+        hiddenNodeService.Visible = False
+        ExportNodeService.Visible = False
+        GridViewBinFill.Visible = False
+        hiddenBinFill.Visible = False
+        ExportBinFill.Visible = False
+        GridViewStockOut.Visible = False
+        hiddenStockOut.Visible = False
+        ExportStockOut.Visible = False
+        GridViewStageScan.Visible = False
+        hiddenStageScan.Visible = False
+        ExportStageScan.Visible = False
+        NodeServiceSubmitB.Visible = False
+        BinFillSubmitB.Visible = False
+        StageScanSubmitB.Visible = False
+        StockOutSubmitB.Visible = False
+        NodeServiceProcessRow.Visible = False
+        StockOutProcessRow.Visible = False
+        TravelLocationRow.Visible = False
+        LocationRow.Visible = True
+        GridViewGroupConfig.DataBind()
+        GridViewGroupConfig.Visible = True
+        HiddenGroupConfig.Visible = True
+        GroupConfigSubmitB.Visible = True
+        GroupConfigRow.Visible = True
+        DescriptionRow.Visible = True
     End Sub
 
     Protected Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
 
         If TimeStudyMessageL.Text <> "" Then
             TimeStudyMessageL.Text = ""
+        End If
+
+    End Sub
+
+    Protected Sub SearchButtonGroupConfig_Click(sender As Object, e As EventArgs) Handles SearchButtonGroupConfig.Click
+
+        If GroupConfigMessageL.Text <> "" Then
+            GroupConfigMessageL.Text = ""
         End If
 
     End Sub
@@ -455,6 +599,40 @@ Partial Class TimeStudy
         StockOutProcessDD.SelectedValue = ""
         CommentsTB.Text = ""
         GridViewStockOut.DataBind()
+
+    End Sub
+
+    Protected Sub GroupConfigSubmitB_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles GroupConfigSubmitB.Click
+        'Make sure a file has been successfully uploaded
+
+        If GroupConfigTB.Text = "" Or GroupFacilityDD.SelectedValue = "" Or GroupLocationDD.SelectedValue = "" Then
+            GroupConfigMessageL.ForeColor = System.Drawing.Color.Red
+            GroupConfigMessageL.Text = "Group Entry Invalid, Missing Required Fields."
+            Exit Sub
+        End If
+
+        'TimeStudyMessageL.Text = "exec sp_InsertTimeStudyStockOut" + FacilityDD.SelectedValue.ToString() + "," + LocationDD.SelectedValue.ToString() + "," + TravelLocationDD.SelectedValue.ToString() + "," + StockOutProcessDD.SelectedValue.ToString() + "," + StartTimeTB.Text + "," + StopTimeTB.Text + "," + SKUsTB.Text + "," + CommentsTB.Text + "," + CreatorUserLogin
+        'Connect to the database and insert a new record into Products
+        Using myConnection As New SqlConnection(ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString)
+            Const SQL As String = "exec sp_InsertTimeStudyGroup @FacilityID,@LocationID,@GroupName,@Description,@BlueBinUser"
+            Dim myCommand As New SqlCommand(SQL, myConnection)
+            myCommand.Parameters.AddWithValue("@FacilityID", GroupFacilityDD.SelectedValue.ToString())
+            myCommand.Parameters.AddWithValue("@LocationID", GroupLocationDD.SelectedValue.ToString())
+            myCommand.Parameters.AddWithValue("@GroupName", GroupConfigTB.Text)
+            myCommand.Parameters.AddWithValue("@Description", DescriptionTB.Text)
+            myCommand.Parameters.AddWithValue("@BlueBinUser", CreatorUserLogin)
+
+
+
+            myConnection.Open()
+            myCommand.ExecuteNonQuery()
+            myConnection.Close()
+            GroupConfigMessageL.ForeColor = System.Drawing.Color.Green
+            GroupConfigMessageL.Text = "Time Study Entry Successful Successfully"
+
+        End Using
+
+        GridViewGroupConfig.DataBind()
 
     End Sub
 
