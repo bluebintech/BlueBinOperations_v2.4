@@ -61,6 +61,7 @@
                     <asp:DropDownList ID="LocationDD" AppendDataBoundItems="false"  runat="server" DataSourceID="LocationSource" DataTextField="LocationName" DataValueField="LocationID">
                 <asp:ListItem Selected = "True" Text = "--Select--" Value = ""></asp:ListItem>
                 <asp:ListItem Text = "Multiple" Value = "Multiple"></asp:ListItem>
+
             </asp:DropDownList>
                 </asp:TableCell>
                  </asp:TableRow><asp:TableRow Height="10"></asp:TableRow>

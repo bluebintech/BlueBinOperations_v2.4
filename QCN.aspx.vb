@@ -14,8 +14,9 @@ Partial Public Class QCN
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If IsPostBack Then
             GetData()
+
         End If
-        GridViewQCN.DataBind()
+
 
 
         If Me.Page.User.Identity.IsAuthenticated Then
@@ -97,15 +98,46 @@ Partial Public Class QCN
         hfCount.Value = (arr.Count - currentCount).ToString()
     End Sub
 
-    Protected Sub NewQCNB_Click(sender As Object, e As EventArgs) Handles NewQCNB.Click
-        Response.Redirect("~/QCNForm")
-        GridViewQCN.DataBind()
-    End Sub
+    'Protected Sub NewQCNB_Click(sender As Object, e As EventArgs) Handles NewQCNB.Click
+    '    Response.Redirect("~/QCNForm")
+    '    GridViewQCN.DataBind()
+    'End Sub
 
     Protected Sub QCNDashboardB_Click(sender As Object, e As EventArgs) Handles QCNDashboardB.Click
         'Response.Redirect("~/QCNReportViewer")
         Dim url As String = "QCNReportViewer.aspx"
         Response.Write("<script type='text/javascript'>window.open('" + url + "');</script>")
+    End Sub
+
+    Protected Sub SearchButton_Click(sender As Object, e As EventArgs) Handles SearchButton.Click
+        Dim Facility As String
+        Dim Location As String
+        Dim Status As String
+        Dim User As String
+
+        Facility = QCNFacilityS.SelectedValue
+        Location = QCNLocationS.SelectedValue
+        Status = QCNStatusSearchDD.SelectedValue
+        User = AssignedSearchDD.SelectedValue
+
+        Dim con As New SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString)
+        con.Open()
+        Dim da As New SqlDataAdapter("exec sp_SelectQCN '" & Facility & "','" & Location & "','" & Status & "','" & User & "'", con)
+        Dim dt As New DataTable
+
+        da.Fill(dt)
+
+
+        If dt.Rows.Count = 0 Then
+            '    Me.TextBox3.Text = dt.Rows(0).Item("StudentName")
+            '    Me.TextBox4.Text = dt.Rows(0).Item("StudentID")
+            'Else
+            MsgBox("No records found")
+        End If
+
+        con.Close()
+
+        GridViewQCN.DataBind()
     End Sub
 
     Private Sub QCNDataSource_Selecting(sender As Object,
@@ -197,10 +229,7 @@ Partial Public Class QCN
         ' Verifies that the control is rendered
     End Sub
 
-    Protected Sub OnCheckedChanged(sender As Object, e As EventArgs)
-        GridViewQCN.Columns(18).Visible = TryCast(sender, CheckBox).Checked
 
-    End Sub
 
     Private Sub GetData()
         Dim arr As ArrayList

@@ -4,8 +4,9 @@ Imports System.Data.SqlClient
 Imports System.Drawing
 Imports System.IO
 Imports System.Configuration
-Imports System.Net.Mail
-Imports System.Web.UI.WebControls
+Imports System
+Imports System.Web
+
 
 Partial Class ConesDeployed
     Inherits Page
@@ -19,6 +20,10 @@ Partial Class ConesDeployed
 
 
         If Me.Page.User.Identity.IsAuthenticated Then
+
+
+
+
             Dim UserLogin As String = Page.User.Identity.Name.ToString().ToLower()
             Dim UserConesEdit As String
 
@@ -137,13 +142,13 @@ Partial Class ConesDeployed
     End Sub
 
 
-    Protected Sub OnRowDataBound(sender As Object, e As GridViewRowEventArgs)
-        If e.Row.RowType = DataControlRowType.DataRow Then
-            Dim cellUpdates As TableCell = e.Row.Cells(14)
-            cellUpdates.ToolTip = TryCast(e.Row.DataItem, DataRowView)("DetailsText").ToString()
-        End If
+    'Protected Sub OnRowDataBound(sender As Object, e As GridViewRowEventArgs)
+    '    If e.Row.RowType = DataControlRowType.DataRow Then
+    '        Dim cellUpdates As TableCell = e.Row.Cells(14)
+    '        cellUpdates.ToolTip = TryCast(e.Row.DataItem, DataRowView)("DetailsText").ToString()
+    '    End If
 
-    End Sub
+    'End Sub
 
 
     Protected Sub OnPageIndexChanging(sender As Object, e As GridViewPageEventArgs)
@@ -153,5 +158,7 @@ Partial Class ConesDeployed
     Public Overrides Sub VerifyRenderingInServerForm(control As Control)
         ' Verifies that the control is rendered
     End Sub
+
+
 
 End Class

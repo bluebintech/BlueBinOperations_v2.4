@@ -144,8 +144,10 @@ Public Class Dashboard
             Dim SCItemLocator As String
             Dim SCParValuation As String
 
+            Dim OPNodeScorecard As String
             Dim OPSupplySpend As String
             Dim OPStatCalls As String
+            Dim OPStatCallsDetail As String
             Dim OPWarehouseVolume As String
             Dim OPWarehouseHistory As String
             Dim OPWarehouseDetail As String
@@ -171,6 +173,7 @@ Public Class Dashboard
             Dim SrcCostImpactCalculator As String
             Dim SrcOpenPOReport As String
             Dim SrcCostVarianceDashboard As String
+            Dim SrcForecast As String
 
 
             Dim constr As String = ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString
@@ -227,6 +230,7 @@ Public Class Dashboard
                     cmdmenu.Parameters.Clear()
 
                     'REPORTS-Supply Chain
+                   
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "SC-Daily Management DB")
                     SCDailyManagementDB = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
@@ -262,11 +266,17 @@ Public Class Dashboard
                     cmdmenu.Parameters.Clear()
 
                     'REPORTS-Op Performance
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Node Scorecard")
+                    OPNodeScorecard = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Supply Spend")
                     OPSupplySpend = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Stat Calls")
                     OPStatCalls = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Stat Calls Detail")
+                    OPStatCallsDetail = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Warehouse History")
                     OPWarehouseHistory = Convert.ToString(cmdmenu.ExecuteScalar())
@@ -342,6 +352,9 @@ Public Class Dashboard
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "Src-Cost Variance Dashboard")
                     SrcCostVarianceDashboard = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "Src-Location Forecast")
+                    SrcForecast = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
 
                     conmenu.Close()
@@ -439,6 +452,14 @@ Public Class Dashboard
             End If
 
             'Op Performance Report Menus
+            If OPNodeScorecard = "Yes" Then
+                MenuOPNodeScorecard.Visible = True
+                NodeScorecardLine.Visible = True
+            Else
+                MenuOPNodeScorecard.Visible = False
+                NodeScorecardLine.Visible = False
+            End If
+
             If OPSupplySpend = "Yes" Then
                 MenuOPSupplySpend.Visible = True
             Else
@@ -449,6 +470,12 @@ Public Class Dashboard
                 MenuOPStatCalls.Visible = True
             Else
                 MenuOPStatCalls.Visible = False
+            End If
+
+            If OPStatCallsDetail = "Yes" Then
+                MenuOPStatCallsDetail.Visible = True
+            Else
+                MenuOPStatCallsDetail.Visible = False
             End If
 
             If OPWarehouseVolume = "Yes" Then
@@ -609,6 +636,12 @@ Public Class Dashboard
                 MenuSrcCostVarianceDashboard.Visible = True
             Else
                 MenuSrcCostVarianceDashboard.Visible = False
+            End If
+
+            If SrcForecast = "Yes" Then
+                MenuSrcForecast.Visible = True
+            Else
+                MenuSrcForecast.Visible = False
             End If
 
 

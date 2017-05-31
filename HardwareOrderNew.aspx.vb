@@ -61,7 +61,7 @@ Partial Class HardwareOrderNew
     Private Sub HardwareOrderSubmitEmail_Click(ByVal sender As System.Object,
         ByVal e As System.EventArgs) Handles HardwareOrderSubmitEmail.Click
         Dim SmtpServer As New SmtpClient()
-        SmtpServer.Credentials = New Net.NetworkCredential("BlueBinHardware@gmail.com", "BBT2015!")
+        SmtpServer.Credentials = New Net.NetworkCredential("BlueBinHardware@gmail.com", "BBHard20!7")
         SmtpServer.Port = 587
         SmtpServer.Host = "smtp.gmail.com"
         SmtpServer.EnableSsl = True

@@ -6,6 +6,10 @@
 
 
     <div>
+        <h3>BlueBin Guides</h3>
+        <a runat="server" href="/BlueBinDocuments/DMS Application User Guide.pdf" target="_blank">BlueBin DMS Application User Guide</a><br />
+    </div>
+    <div>
         <h3>BlueBin Program</h3>
         <a runat="server" href="/BlueBinDocuments/BBI INTRO-MAIN.ppsx" target="_blank">BlueBin Overview Presentation</a><br />
     </div>

@@ -36,7 +36,7 @@
         <asp:TableRow Width="250" BackColor="#CCCCCC">
           <asp:TableCell ForeColor="#000084" Font-Bold="True" BackColor="White">Add Training Entry: </asp:TableCell>
           <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell><asp:DropDownList runat="server" ID="NameDDAdd" DataSourceID="NameDataSourceF" DataTextField="ResourceName" DataValueField="BlueBinResourceID" AppendDataBoundItems="False"></asp:DropDownList>
-                    <asp:SqlDataSource runat="server" ID="NameDataSourceF" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="SELECT DISTINCT [BlueBinResourceID],LastName + ', ' + FirstName as [ResourceName] FROM bluebin.[BlueBinResource]"></asp:SqlDataSource></asp:TableCell>
+                    <asp:SqlDataSource runat="server" ID="NameDataSourceF" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="SELECT DISTINCT [BlueBinResourceID],LastName + ', ' + FirstName as [ResourceName] FROM bluebin.[BlueBinResource] where Active = 1"></asp:SqlDataSource></asp:TableCell>
           <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell><asp:DropDownList runat="server" ID="TrainingModuleUODDAdd" DataSourceID="TrainingModuleDataSourceF2" DataTextField="ModuleName" DataValueField="TrainingModuleID" AppendDataBoundItems="False"></asp:DropDownList>
                         <asp:SqlDataSource runat="server" ID="TrainingModuleDataSourceF2" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="select TrainingModuleID,ModuleName from bluebin.TrainingModule where Active = 1"></asp:SqlDataSource></asp:TableCell>
           <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>

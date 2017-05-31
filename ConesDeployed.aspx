@@ -66,7 +66,9 @@
           <asp:TableRow>  
             <asp:TableCell><asp:Label ID="lblMessage" runat="server" Text="" Font-Names = "Arial"></asp:Label> </asp:TableCell>
             </asp:TableRow>
-</asp:Table></asp:TableCell>
+</asp:Table>
+
+          </asp:TableCell>
             <asp:TableCell Width="15"></asp:TableCell>
             <asp:TableCell><b>Details:</b>&nbsp;<asp:TextBox runat="server" TextMode="MultiLine" ID="DetailsTB" Height="120" Width="200" MaxLength="255"></asp:TextBox></asp:TableCell>
             <asp:TableCell Width="15"></asp:TableCell>
@@ -79,7 +81,7 @@
 
     </asp:TableRow>  
 
-</asp:Table>    
+    
 <asp:TableRow Height="15"></asp:TableRow>
   <asp:TableRow><asp:TableCell>
         <asp:Table runat="server" ID="SearchTable">
@@ -96,31 +98,118 @@
 
 <asp:TableRow>
 <asp:TableCell Width="500px"  >
-        <asp:GridView ID="GridViewCones" OnRowDataBound="OnRowDataBound" CssClass="GridViewitem" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" DataSourceID="ConesDataSource" AutoGenerateColumns="False" DataKeyNames="ConesDeployedID" AllowSorting="True" AllowPaging="True" ShowFooter="True" PageSize="30">
+    <asp:GridView ID="GridViewCones" CssClass="GridViewitem" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" DataSourceID="ConesDataSource" AutoGenerateColumns="False" DataKeyNames="ConesDeployedID" AllowSorting="True" AllowPaging="True" ShowFooter="True" PageSize="30">
         <AlternatingRowStyle BackColor="#DCDCDC"></AlternatingRowStyle>
 
         <Columns>
+            
             <asp:TemplateField ShowHeader="False">
+                <EditItemTemplate>
+                    <asp:LinkButton runat="server" Text="Update" CommandName="Update" CausesValidation="True" ID="Button1"></asp:LinkButton><br />
+                    <asp:LinkButton runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" ID="Button2"></asp:LinkButton>
+                </EditItemTemplate>
                 <ItemTemplate>
-                    <asp:Button ID="ReturnConeB" runat="server" Text="Return Cone" CommandName="Delete" CausesValidation="False"  OnClientClick="return confirm('Are you sure you want to mark this cone as returned?');"></asp:Button>
+                    <asp:LinkButton runat="server" Text="Edit" CommandName="Edit" CausesValidation="False" ID="Button1"></asp:LinkButton>
                 </ItemTemplate>
-                
             </asp:TemplateField>
-            <asp:BoundField DataField="ConesDeployedID" HeaderText="ConesDeployedID" Visible="False" SortExpression="ConesDeployedID"  />
-            <asp:BoundField DataField="Deployed" HeaderText="Deployed" SortExpression="Deployed" DataFormatString="{0:d}"/>
-            <asp:BoundField DataField="ExpectedDelivery" HeaderText="Expected Date" SortExpression="ExpectedDelivery" DataFormatString="{0:d}"/>
+            <asp:BoundField DataField="ConesDeployedID" HeaderText="ConesDeployedID" Visible="False" SortExpression="ConesDeployedID" />
+            <asp:TemplateField HeaderText="Deployed" InsertVisible="False" SortExpression="Deployed">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("Deployed", "{0:d}") %>' ID="LabelDeployed"  DataFormatString="{0:d}"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("Deployed", "{0:d}") %>' ID="LabelDeployed"  DataFormatString="{0:d}"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Delivery" InsertVisible="False" SortExpression="ExpectedDelivery" >
+                    <EditItemTemplate>
+                        <asp:TextBox runat="server" ID="TBDelivery"  Text='<%# Bind("ExpectedDelivery", "{0:d}") %>'  DataFormatString="{0:d}" Width="85" ></asp:TextBox>
+                        <asp:RangeValidator ID ="rvDate" runat ="server" ControlToValidate="TBDelivery" ErrorMessage="Invalid Date" Width="85" Type="Date" MinimumValue="01/01/1900" MaximumValue="01/01/2100" Display="Dynamic" Font-Italic="True"></asp:RangeValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label runat="server" Text='<%# Bind("ExpectedDelivery", "{0:d}") %>'  DataFormatString="{0:d}" ID="Label2" ></asp:Label>
+                    </ItemTemplate>
+            </asp:TemplateField>
             <asp:BoundField DataField="FacilityID" HeaderText="FacilityID" Visible="False" SortExpression="FacilityID" />
-            <asp:BoundField DataField="FacilityName" HeaderText="Facility" SortExpression="FacilityName"  ItemStyle-Wrap="False"/>
-            <asp:BoundField DataField="LocationID" HeaderText="LocationID" SortExpression="LocationID" />
-            <asp:BoundField DataField="LocationName" HeaderText="Location" SortExpression="LocationName"  ItemStyle-Wrap="False"/>
-            <asp:BoundField DataField="ItemID" HeaderText="ItemID" SortExpression="ItemID" />
-            <asp:BoundField DataField="ItemDescription" HeaderText="Item Description" SortExpression="ItemDescription"  ItemStyle-Wrap="False"/>
-            <asp:BoundField DataField="SubProduct" HeaderText="Sub Product" SortExpression="SubProduct"  ItemStyle-Wrap="False"/>
-            <asp:BoundField DataField="BinSequence" HeaderText="Sequence" SortExpression="BinSequence"  ItemStyle-Wrap="False"/>
-            <asp:BoundField DataField="DashboardStockout" HeaderText="Dashboard Stockout" SortExpression="DashboardStockout"  ItemStyle-Wrap="False"/>
-            <asp:BoundField DataField="DetailsText" HeaderText="DetailsText" SortExpression="DetailsText"  Visible="False"/>
-            <asp:BoundField DataField="Details" HeaderText="Details" SortExpression="Details" />
+            <asp:TemplateField HeaderText="Facility" InsertVisible="False" SortExpression="FacilityName">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("FacilityName") %>' ID="LFacilityName"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("FacilityName") %>' ID="LFacilityName"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:BoundField DataField="LocationID" HeaderText="LocationID" SortExpression="LocationID" Visible="False" />
+            <asp:TemplateField HeaderText="Location" InsertVisible="False" SortExpression="LocationName">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("LocationName") %>' ID="LFLocationName" Width="100"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("LocationName") %>' ID="LLocationName"  Width="100"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            <asp:TemplateField HeaderText="Item" InsertVisible="False" SortExpression="ItemID">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("ItemID") %>' ID="LItemID"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("ItemID") %>' ID="LItemID"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>   
+            <asp:TemplateField HeaderText="Item Description" InsertVisible="False" SortExpression="ItemDescription">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("ItemDescription") %>' ID="LItemDescription"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("ItemDescription") %>' ID="LItemDescription"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>   
+            <asp:TemplateField HeaderText="Sub" InsertVisible="False" SortExpression="SubProduct">
+                <EditItemTemplate>
+                    <asp:DropDownList runat="server"  AutoPostBack="False" ID="SubProductDD" SelectedValue=<%#Bind("SubProduct")%>>
+                        <asp:ListItem Value="Yes">Yes</asp:ListItem>
+                        <asp:ListItem Value="No">No</asp:ListItem>
+                    </asp:DropDownList>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("SubProduct") %>' ID="LSubProduct"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>   
+            <asp:TemplateField HeaderText="Sequence" InsertVisible="False" SortExpression="BinSequence">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("BinSequence") %>' ID="LBinSequence" ItemStyle-Wrap="False"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("BinSequence") %>' ID="LBinSequence" ItemStyle-Wrap="False"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField> 
+            <asp:TemplateField HeaderText="Stockout" InsertVisible="False" SortExpression="DashboardStockout">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("DashboardStockout") %>' ID="LDashboardStockout" ItemStyle-Wrap="False"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("DashboardStockout") %>' ID="LDashboardStockout" ItemStyle-Wrap="False"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField> 
+            <asp:TemplateField HeaderText="Details" SortExpression="DetailsText">
+                <EditItemTemplate>
+                    <asp:TextBox runat="server" Text='<%# Bind("DetailsText") %>' ID="EditDetailsText" ItemStyle-Wrap="True" Height="120" Width="200" TextMode="MultiLine"></asp:TextBox>
+                 </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("Details") %>' ID="IDetailsText" ToolTip='<%# Bind("DetailsText") %>'></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
 
+
+             <asp:TemplateField ShowHeader="False">
+                <ItemTemplate>
+                    <asp:Button ID="ReturnConeB" class ="btn btn-primary btn-sm" runat="server" Text="Return Cone" CommandName="Delete" CausesValidation="False" OnClientClick="return confirm('Are you sure you want to mark this cone as returned?');"></asp:Button>
+                </ItemTemplate>
+                 <EditItemTemplate>
+                    <asp:Button ID="ReturnConeB" class ="btn btn-primary btn-sm" runat="server" Text="Return Cone" CausesValidation="False" Visible="False"></asp:Button>
+                </EditItemTemplate>
+            </asp:TemplateField>
+            
 
         </Columns>
         <FooterStyle BackColor="#CCCCCC" ForeColor="Black"></FooterStyle>
@@ -137,7 +226,11 @@
 
 </asp:TableCell> </asp:TableRow>
 
-            <asp:TableRow Height="15px"></asp:TableRow>
+            
+        
+
+
+        <asp:TableRow Height="15px"></asp:TableRow>
         <asp:TableRow><asp:TableCell> 
             <asp:ImageButton ID="ExportCones" runat="Server" ImageUrl="~/img/ExportExcel.gif" OnClick="ExportToExcelCones" Height="25px" CausesValidation="False" />
                                                                  </asp:TableCell> </asp:TableRow>  
@@ -150,12 +243,15 @@
         <asp:SqlDataSource runat="server" ID="ConesDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' 
             DeleteCommand="exec sp_EditConesDeployed @ConesDeployedID" 
             SelectCommand="exec sp_SelectConesDeployed @Location,@Item" 
-            UpdateCommand="exec sp_EditConesDeployed @ConesDeployedID">
+            UpdateCommand="exec sp_EditConesDetail @ConesDeployedID,@DetailsText,@ExpectedDelivery,@SubProduct">
         <DeleteParameters>
             <asp:Parameter Name="ConesDeployedID" Type="Int32"></asp:Parameter>
         </DeleteParameters>
         <UpdateParameters>
             <asp:Parameter Name="ConesDeployedID" Type="Int32"></asp:Parameter>
+             <asp:Parameter Name="DetailsText" Type="String"></asp:Parameter>
+            <asp:Parameter Name="ExpectedDelivery" Type="DateTime"></asp:Parameter>
+            <asp:Parameter Name="SubProduct" Type="String"></asp:Parameter>
         </UpdateParameters>
             <SelectParameters>
                 <asp:ControlParameter ControlID="LocationSB" Name="Location" PropertyName="Text" DefaultValue="%"  />
@@ -163,6 +259,9 @@
             </SelectParameters>
     </asp:SqlDataSource>
         <asp:SqlDataSource runat="server" ID="FacilityDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
+             
+
+
         <asp:SqlDataSource ID="LocationSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
             SelectCommand="exec sp_SelectLocationCascade 'No'" FilterExpression="FacilityID = '{0}'" >
                 <FilterParameters>
