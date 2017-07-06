@@ -144,6 +144,7 @@ Public Class Dashboard
             Dim SCItemLocator As String
             Dim SCParValuation As String
 
+            Dim OPBinSequence As String
             Dim OPNodeScorecard As String
             Dim OPSupplySpend As String
             Dim OPStatCalls As String
@@ -266,6 +267,9 @@ Public Class Dashboard
                     cmdmenu.Parameters.Clear()
 
                     'REPORTS-Op Performance
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Bin Sequence")
+                    OPBinSequence = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Node Scorecard")
                     OPNodeScorecard = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
@@ -458,6 +462,12 @@ Public Class Dashboard
             Else
                 MenuOPNodeScorecard.Visible = False
                 NodeScorecardLine.Visible = False
+            End If
+
+            If OPBinSequence = "Yes" Then
+                MenuOpBinSequence.Visible = True
+            Else
+                MenuOpBinSequence.Visible = False
             End If
 
             If OPSupplySpend = "Yes" Then

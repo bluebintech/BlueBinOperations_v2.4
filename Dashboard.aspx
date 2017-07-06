@@ -65,6 +65,7 @@
                             <li><a href="#" runat="server" id="MenuOPKanbansAdjusted" onClick="switchView('Kanbans Adjusted')">Kanbans Adjusted</a></li>
                             <li><a href="#" runat="server" id="MenuOPConesDashboard" onClick="switchView('Cones Deployed Dashboard')">Cones Dashboard</a></li>
                             <li><a href="#" runat="server" id="MenuOPItemUsage" onClick="switchView('Item Usage and Cost')">Item Usage</a></li>
+                            <li><a href="#" runat="server" id="MenuOpBinSequence" onClick="switchView('Bin Sequence Report')">Bin Sequence Report</a></li>
                             <li class="divider" id="QCNGembaLine" runat="server"></li>
                             <li><a href="#" runat="server" id="MenuOPQCNDashboard" onClick="switchView('QCN Dashboard')">QCN Dashboard</a></li>
                             <li><a href="#" runat="server" id="MenuOPQCNDetail" onClick="switchView('QCN Detail')">QCN Detail</a></li>
