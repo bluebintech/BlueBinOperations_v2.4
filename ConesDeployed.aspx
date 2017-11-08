@@ -85,9 +85,9 @@
 <asp:TableRow Height="15"></asp:TableRow>
   <asp:TableRow><asp:TableCell>
         <asp:Table runat="server" ID="SearchTable">
-                <asp:TableRow><asp:TableCell><asp:Label runat="server" id="LocationL">Location:&nbsp;</asp:Label></asp:TableCell><asp:TableCell><asp:TextBox ID="LocationSB" runat="server" Width="200px"></asp:TextBox></asp:TableCell></asp:TableRow>
+                <asp:TableRow><asp:TableCell><asp:Label runat="server" id="LocationL">Find Cone by Location:&nbsp;</asp:Label></asp:TableCell><asp:TableCell><asp:TextBox ID="LocationSB" runat="server" Width="200px"></asp:TextBox></asp:TableCell></asp:TableRow>
             <asp:TableRow Height="5px"></asp:TableRow>
-                <asp:TableRow><asp:TableCell><asp:Label runat="server" id="ItemL">Item:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:Label></asp:TableCell><asp:TableCell><asp:TextBox ID="ItemSB" runat="server" Width="200px"></asp:TextBox>&nbsp;<asp:Button ID="SearchButton"  runat="server" Text="Search" /> &nbsp;&nbsp;</asp:TableCell></asp:TableRow>
+                <asp:TableRow><asp:TableCell><asp:Label runat="server" id="ItemL">Find Cone by Item:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:Label></asp:TableCell><asp:TableCell><asp:TextBox ID="ItemSB" runat="server" Width="200px"></asp:TextBox>&nbsp;<asp:Button ID="SearchButton"  runat="server" Text="Search" /> &nbsp;&nbsp;</asp:TableCell></asp:TableRow>
              
                 
             <asp:TableRow Height="15px"></asp:TableRow>

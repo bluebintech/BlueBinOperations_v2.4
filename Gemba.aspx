@@ -59,7 +59,7 @@
                     <asp:Label runat="server" Font-Size="Larger"  Text='<%# Bind("[Total Score]") %>' ID="Label1" Font-Bold="True" ForeColor="#000066"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
-
+            <asp:BoundField DataField="Images" HeaderText="Images" SortExpression="Images" />
             <asp:BoundField DataField="AdditionalCommentsText" HeaderText="AdditionalCommentsText" SortExpression="AdditionalCommentsText" Visible="False" />
             <asp:BoundField DataField="Addtl Comments" HeaderText="Addtl Comments" SortExpression="Addtl Comments" />
             <asp:TemplateField ShowHeader="False">

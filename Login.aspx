@@ -15,7 +15,10 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <%--<link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">--%>
+    <%--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css">--%>
+    <link rel="stylesheet" href="~/Content/Site.css">
+    <link rel="stylesheet" href="~/Content/ceruleanbootstrap.min.css">
 
 </head>
 

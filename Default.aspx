@@ -15,7 +15,7 @@
             
             <h2>BlueBin Dashboard</h2>
             <p>
-                View your Daily Management Dashboard Reports by launching the BlueBin Intelligence Module powered by Tableau.  Dozens of market-leading reports are available to help you track the health of your Supply Chain.
+                View your Daily Management Dashboard Reports by launching various BlueBin Intelligence Modules. Dozens of market-leading reports are available to help you track the health of your Supply Chain.
             </p>
             <p>
                 <a runat="server" class="btn btn-primary btn-sm" href="~/Dashboard">Click Here &raquo;
@@ -44,9 +44,9 @@
          </div>
     <div class="row">        
          <div class="col-md-4" id="huddleboarddiv" runat="server">
-            <h2>Digital Huddle Board</h2>
+            <h2>DMS Huddle Board</h2>
             <p>
-                View your BlueBin Digital Huddle Board powered by Tableau.
+                Launch your DMS Huddle Board to ensure operational team alignment.
             </p>
             <p>
                 <a class="btn btn-primary btn-sm" runat="server" href="~/HuddleBoard" target ="_blank">Click Here &raquo;</a>
@@ -56,7 +56,7 @@
         <div class="col-md-4" id="conesdiv" runat="server">
             <h2>Cones Module</h2>
             <p>
-                You can record stock out Item cone placement for tracking in the BlueBin Dashboard and Digital Huddle Board.
+                You can record stock out item cone placement for tracking in the BlueBin Dashboard and DMS Huddle Board.
             </p>
             <p>
                 <a class="btn btn-primary btn-sm" runat="server" href="~/ConesDeployed">Click Here &raquo;</a>
@@ -69,7 +69,7 @@
       <div class="col-md-4" runat="server">
             <h2>Operational Procedures</h2>
             <p>
-                Review Standard Operating Procedures and Documentation for your BlueBin Solution.
+                Review Standard Operating Procedures and Documentation for your BlueBin System.
             </p>
             <p>
                 <a class="btn btn-primary btn-sm" runat="server" href="~/OperationalProcedures">Click Here &raquo;</a>

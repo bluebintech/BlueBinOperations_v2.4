@@ -8,6 +8,7 @@
     <p>
             <asp:LinkButton ID="AdvancedConfigB" runat="server" class="btn btn-default">Advanced Config</asp:LinkButton>&nbsp;
             <asp:LinkButton ID="QCNConfigB" runat="server" class="btn btn-default">QCN Config</asp:LinkButton>&nbsp;
+            <asp:LinkButton ID="HistoricalDimBinB" runat="server" class="btn btn-default">Historical Locations</asp:LinkButton>&nbsp;
 
         </p>
               </asp:TableCell></asp:TableRow>
@@ -355,7 +356,172 @@
  
         </p>
 </asp:TableCell> </asp:TableRow>
-    </asp:Table>
+
+<asp:TableRow Height="10"></asp:TableRow>
+    <asp:TableRow>
+    <asp:TableCell Width="500px"  >
+        <asp:Label runat="server" id="hiddenHistoricalDimBinJoin" Visible="False"><h3>Historical Locations</h3></asp:Label></asp:TableCell></asp:TableRow>
+    
+    <asp:TableRow ID="AddHistoricalDimBinJoin" runat="server" Width="500">
+        <asp:TableCell >
+        <asp:Table runat="server" CellPadding="1" CellSpacing="1" Height="25">
+        <asp:TableRow Width="250" BackColor="#CCCCCC">
+          <asp:TableCell ForeColor="#000084" Font-Bold="True" BackColor="White">Add Historical Location Entry: </asp:TableCell>
+        </asp:TableRow>
+        <asp:TableRow Width="250" BackColor="#CCCCCC"> 
+        <asp:TableCell>
+                    <asp:DropDownList ID="FacilityInsertDD"  AppendDataBoundItems="true" runat="server" DataSourceID="FacilityDataSource" DataTextField="FacilityName" DataValueField="FacilityID" >
+                    <asp:ListItem Selected="True" Text = "--Select--" Value = "" ></asp:ListItem>
+                    </asp:DropDownList>
+          </asp:TableCell>
+          
+          
+          <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>
+             <asp:TextBox runat="server" ID="OldLocationID"></asp:TextBox>                 
+          </asp:TableCell>
+
+          <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>
+             <asp:TextBox runat="server" ID="OldLocationName"></asp:TextBox>                 
+          </asp:TableCell>
+
+          <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>
+                    <asp:DropDownList ID="LocationInsertDD"  AppendDataBoundItems="true" runat="server" DataSourceID="LocationDataSource" DataTextField="LocationName" DataValueField="LocationID">
+                    <asp:ListItem Selected="True" Text = "--Select--" Value = "" ></asp:ListItem>
+                    </asp:DropDownList>
+          </asp:TableCell>
+                        
+          <asp:TableCell Width ="3"></asp:TableCell>
+              <asp:TableCell  BackColor="White"><asp:LinkButton ID="HistoricalDimBinJoinAddB" runat="server" Text="Submit"  class="btn btn-primary btn-sm"></asp:LinkButton></asp:TableCell>
+          
+        </asp:TableRow>
+        <asp:TableRow Height="10px"></asp:TableRow>
+          </asp:Table>
+
+        </asp:TableCell>
+    </asp:TableRow>
+
+    <asp:TableRow>
+    <asp:TableCell Width="500px"  >
+        <asp:GridView ID="GridViewHistoricalDimBinJoin"  OnRowCommand="GridViewConfig_RowCommand" CssClass="GridViewitem" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Vertical" DataSourceID="HistoricalDimBinJoinDataSource" AutoGenerateColumns="False" DataKeyNames="HistoricalDimBinJoinID" AllowSorting="True" AllowPaging="True" ShowFooter="True" PageSize="30">
+        <AlternatingRowStyle BackColor="#DCDCDC"></AlternatingRowStyle>
+
+        <Columns>
+            <asp:TemplateField ShowHeader="False">
+                <EditItemTemplate>
+                    <asp:LinkButton runat="server" Text="Update" CommandName="Update" CausesValidation="True" ValidationGroup="EditConfig" ID="EditBE"></asp:LinkButton><br />
+                    <asp:LinkButton runat="server" Text="Cancel" CommandName="Cancel" CausesValidation="False" ID="CancelB"></asp:LinkButton>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:LinkButton runat="server" Text="Edit" CommandName="Edit" CausesValidation="False" ID="EditBI"></asp:LinkButton>
+                    <asp:LinkButton runat="server" Text="Delete" CommandName="Delete" CausesValidation="False" ID="HistoricalDimBinJoinDeleteB" OnClientClick="return confirm('Are you sure you want to delete this entry?');"></asp:LinkButton>
+                </ItemTemplate>
+                </asp:TemplateField>
+
+            
+            <asp:TemplateField HeaderText="ID" InsertVisible="False" SortExpression="HistoricalDimBinJoinID">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("HistoricalDimBinJoinID") %>' ID="HistoricalDimBinJoinIDLE"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("HistoricalDimBinJoinID") %>' ID="HistoricalDimBinJoinIDLI"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            
+            <asp:TemplateField HeaderText="Facility" SortExpression="FacilityID" Visible="False">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("FacilityID") %>' ID="FacilityIDLE" ></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("FacilityID") %>' ID="FacilityIDLI"></asp:Label>
+                </ItemTemplate>
+                </asp:TemplateField>
+
+            <asp:TemplateField HeaderText="Facility Name" SortExpression="FacilityName">
+                <EditItemTemplate>
+                    <asp:DropDownList runat="server"  AutoPostBack="False" ID="FacilityDD" SelectedValue=<%#Bind("FacilityName")%>>
+                    </asp:DropDownList>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("FacilityName") %>' ID="FacilityNameLI" ></asp:Label>
+                </ItemTemplate>
+
+            </asp:TemplateField>
+            
+            <asp:TemplateField HeaderText="Old Location" SortExpression="OldLocationID">
+                <EditItemTemplate>
+                    <asp:TextBox runat="server" Text='<%# Bind("OldLocationID") %>' ID="OldLocationIDLE"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorHistoricalDimBinJoin" ValidationGroup="EditOldLocationID" runat="server" ControlToValidate="EditOldLocationID" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("OldLocationID") %>' ID="OldLocationIDLI"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+            <asp:TemplateField HeaderText="Old Location Name" SortExpression="OldLocationName">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("OldLocationName") %>' ID="OldLocationNameLE" ></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("OldLocationName") %>' ID="OldLocationNameLI" ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            
+            <asp:TemplateField HeaderText="New Location" SortExpression="NewLocationID">
+                <EditItemTemplate>
+                    <asp:DropDownList runat="server"  AutoPostBack="False" ID="LocationDD" SelectedValue=<%#Bind("LocationName")%>>
+                    </asp:DropDownList>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("NewLocationID") %>' ID="NewLocationIDLI"></asp:Label>
+                </ItemTemplate>
+
+            </asp:TemplateField>
+
+    
+
+            <asp:TemplateField HeaderText="New Location Name" InsertVisible="False" SortExpression="NewLocationName">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("NewLocationName") %>' ID="NewLocationNameLE" ></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("NewLocationName") %>' ID="NewLocationNameLI" ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+            
+            <asp:TemplateField HeaderText="Last Updated" InsertVisible="False" SortExpression="LastUpdated">
+                <EditItemTemplate>
+                    <asp:Label runat="server" Text='<%# Eval("LastUpdated", "{0:d}") %>' ID="LastUpdatedLE"></asp:Label>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("LastUpdated", "{0:d}") %>' ID="LastUpdatedLI"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+        </Columns>
+
+        <FooterStyle BackColor="#CCCCCC" ForeColor="Black"></FooterStyle>
+
+        <HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White"></HeaderStyle>
+
+        <PagerStyle HorizontalAlign="Center" BackColor="#999999" ForeColor="Black"></PagerStyle>
+
+        <RowStyle BackColor="#EEEEEE" ForeColor="Black"></RowStyle>
+
+        <SelectedRowStyle BackColor="#008A8C" Font-Bold="True" ForeColor="White"></SelectedRowStyle>
+
+        <SortedAscendingCellStyle BackColor="#F1F1F1"></SortedAscendingCellStyle>
+
+        <SortedAscendingHeaderStyle BackColor="#0000A9"></SortedAscendingHeaderStyle>
+
+        <SortedDescendingCellStyle BackColor="#CAC9C9"></SortedDescendingCellStyle>
+
+        <SortedDescendingHeaderStyle BackColor="#000065"></SortedDescendingHeaderStyle>
+    </asp:GridView>
+ 
+        </p>
+        </asp:TableCell> </asp:TableRow>
+
+
+</asp:Table>
     
 
 <p>
@@ -451,8 +617,30 @@
 
 </p>
 
+                <p>
+        <asp:SqlDataSource runat="server" ID="HistoricalDimBinJoinDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' 
+            DeleteCommand="exec sp_DeleteHistoricalDimBinJoin @HistoricalDimBinJoinID" 
+            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectHistoricalDimBinJoin" 
+            UpdateCommand="exec sp_EditHistoricalDimBinJoin @HistoricalDimBinJoinID,@FacilityID,@OldLocationID,@OldLocationName,NewLocationID">
+        <DeleteParameters>
+            <asp:Parameter Name="HistoricalDimBinJoinID" Type="Int32"></asp:Parameter>
+        </DeleteParameters>
+
+        <UpdateParameters>
+            <asp:Parameter Name="HistoricalDimBinJoinID" Type="Int32"></asp:Parameter>
+            <asp:Parameter Name="FacilityID" Type="Int32"></asp:Parameter>
+            <asp:Parameter Name="OldLocationID" Type="String"></asp:Parameter>
+            <asp:Parameter Name="OldLocationName" Type="String"></asp:Parameter>
+            <asp:Parameter Name="NewLocationID" Type="String"></asp:Parameter>
+        </UpdateParameters>
+    </asp:SqlDataSource>
+
+</p>
+
         <p>
             <asp:SqlDataSource runat="server" ID="ConfigTypeDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectConfigType"></asp:SqlDataSource>
+            <asp:SqlDataSource runat="server" ID="FacilityDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectFacilities"></asp:SqlDataSource>
+            <asp:SqlDataSource runat="server" ID="LocationDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectLocation"></asp:SqlDataSource>
                     
         </p>
      

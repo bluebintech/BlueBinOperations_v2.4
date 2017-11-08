@@ -11,14 +11,14 @@
     </div>
     <div>
         <h3>BlueBin Program</h3>
-        <a runat="server" href="/BlueBinDocuments/BBI INTRO-MAIN.ppsx" target="_blank">BlueBin Overview Presentation</a><br />
+        <a runat="server" href="/BlueBinDocuments/BBIINTROMAIN.ppsx" target="_blank">BlueBin Overview Presentation</a><br />
     </div>
     <div>
         <h3>Introduction to LEAN</h3>
-        <a href="/BlueBinDocuments/BBI Module #1 - LEAN INTRO.ppsx" runat="server" target="_blank">Lean Introduction</a><br />
-        <a href="/BlueBinDocuments/BBI Module #2 - 5S.ppsx" runat="server" target="_blank">6S Workplace Organization</a><br />
-        <a href="/BlueBinDocuments/BBI Module #3 - STANDARD WORK.ppsx" runat="server" target="_blank">Standard Work</a><br />
-        <a href="/BlueBinDocuments/BBI Module #4 - FLOW.ppsx" runat="server" target="_blank">Operational Efficiency</a><br />
+        <a href="/BlueBinDocuments/BBIModule1LEANINTRO.ppsx" runat="server" target="_blank">Lean Introduction</a><br />
+        <a href="/BlueBinDocuments/BBIModule25S.ppsx" runat="server" target="_blank">6S Workplace Organization</a><br />
+        <a href="/BlueBinDocuments/BBIModule3STANDARDWORK.ppsx" runat="server" target="_blank">Standard Work</a><br />
+        <a href="/BlueBinDocuments/BBIModule4FLOW.ppsx" runat="server" target="_blank">Operational Efficiency</a><br />
     </div>
     <div>
         <h3>BlueBin Technical Documentation</h3>

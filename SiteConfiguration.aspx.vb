@@ -13,11 +13,15 @@ Partial Class SiteConfiguration
         GridViewQCNType.Visible = False
         GridViewQCNStatus.Visible = False
         GridViewQCNComplexity.Visible = False
+
         GridViewConfig.DataBind()
         hiddenConfig.Visible = True
         hiddenQCNType.Visible = False
         hiddenQCNStatus.Visible = False
         hiddenQCNComplexity.Visible = False
+        GridViewHistoricalDimBinJoin.Visible = False
+        hiddenHistoricalDimBinJoin.Visible = False
+        AddHistoricalDimBinJoin.Visible = False
         ConfigSearch.Visible = True
     End Sub
 
@@ -29,6 +33,10 @@ Partial Class SiteConfiguration
         GridViewQCNType.DataBind()
         GridViewQCNComplexity.DataBind()
         GridViewQCNStatus.DataBind()
+        GridViewHistoricalDimBinJoin.DataBind()
+        GridViewHistoricalDimBinJoin.Visible = False
+        hiddenHistoricalDimBinJoin.Visible = False
+        AddHistoricalDimBinJoin.Visible = False
         hiddenQCNType.Visible = True
         hiddenConfig.Visible = False
         hiddenQCNStatus.Visible = True
@@ -36,7 +44,21 @@ Partial Class SiteConfiguration
         ConfigSearch.Visible = False
     End Sub
 
-
+    Protected Sub HistoricalDimBinB_Click(sender As Object, e As EventArgs) Handles HistoricalDimBinB.Click
+        GridViewConfig.Visible = False
+        GridViewQCNType.Visible = False
+        GridViewQCNStatus.Visible = False
+        GridViewQCNComplexity.Visible = False
+        GridViewHistoricalDimBinJoin.DataBind()
+        GridViewHistoricalDimBinJoin.Visible = True
+        hiddenHistoricalDimBinJoin.Visible = True
+        AddHistoricalDimBinJoin.Visible = True
+        hiddenQCNType.Visible = False
+        hiddenConfig.Visible = False
+        hiddenQCNStatus.Visible = False
+        hiddenQCNComplexity.Visible = False
+        ConfigSearch.Visible = False
+    End Sub
 
 
 
@@ -46,10 +68,14 @@ Partial Class SiteConfiguration
             GridViewConfig.DataBind()
             GridViewQCNType.DataBind()
             GridViewQCNStatus.DataBind()
+            GridViewHistoricalDimBinJoin.DataBind()
             GridViewConfig.Visible = True
             GridViewQCNType.Visible = False
             GridViewQCNStatus.Visible = False
             GridViewQCNComplexity.Visible = False
+            GridViewHistoricalDimBinJoin.Visible = False
+            hiddenHistoricalDimBinJoin.Visible = False
+            AddHistoricalDimBinJoin.Visible = False
             ConfigSearch.Visible = True
         End If
     End Sub
@@ -117,5 +143,28 @@ Partial Class SiteConfiguration
             conn.Close()
             GridViewQCNComplexity.DataBind()
         End If
+    End Sub
+
+
+
+    Protected Sub HistoricalDimBinJoinAddB_Click(sender As Object, e As EventArgs) Handles HistoricalDimBinJoinAddB.Click
+
+        Dim conn As New SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString)
+        Dim ad As New SqlDataAdapter()
+        Dim cmd As New SqlCommand()
+        Dim txtFacilityID As String = TryCast(GridViewConfig.FooterRow.FindControl("FacilityInsertDD"), DropDownList).SelectedItem.Value
+        Dim txtNewLocationID As String = TryCast(GridViewConfig.FooterRow.FindControl("LocationInsertDD"), DropDownList).SelectedItem.Value
+        Dim txtOldLocationID As TextBox = DirectCast(GridViewHistoricalDimBinJoin.FooterRow.FindControl("OldLocationID"), TextBox)
+        Dim txtOldLocationName As TextBox = DirectCast(GridViewHistoricalDimBinJoin.FooterRow.FindControl("OldLocationName"), TextBox)
+        cmd.Connection = conn
+        cmd.CommandText = "exec sp_InsertHistoricalDimBinJoin '" + txtFacilityID & "','" + txtNewLocationID & "','" + txtOldLocationID.Text & "','" + txtOldLocationName.Text & "'"
+        conn.Open()
+        cmd.ExecuteNonQuery()
+        conn.Close()
+        GridViewHistoricalDimBinJoin.DataBind()
+
+
+        'TrainingAddErrorText.Text = "User Training Created"
+
     End Sub
 End Class
