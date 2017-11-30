@@ -146,6 +146,7 @@ Public Class Dashboard
 
             Dim OPBinSequence As String
             Dim OPNodeScorecard As String
+            Dim OPClinicalManagementReport As String
             Dim OPSupplySpend As String
             Dim OPStatCalls As String
             Dim OPStatCallsDetail As String
@@ -272,6 +273,9 @@ Public Class Dashboard
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Node Scorecard")
                     OPNodeScorecard = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-CMR")
+                    OPClinicalManagementReport = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Supply Spend")
                     OPSupplySpend = Convert.ToString(cmdmenu.ExecuteScalar())
@@ -456,12 +460,23 @@ Public Class Dashboard
             End If
 
             'Op Performance Report Menus
-            If OPNodeScorecard = "Yes" Then
-                MenuOPNodeScorecard.Visible = True
+            If OPNodeScorecard = "Yes" Or OPClinicalManagementReport = "Yes" Then
                 NodeScorecardLine.Visible = True
             Else
-                MenuOPNodeScorecard.Visible = False
                 NodeScorecardLine.Visible = False
+            End If
+
+            If OPNodeScorecard = "Yes" Then
+                MenuOPNodeScorecard.Visible = True
+            Else
+                MenuOPNodeScorecard.Visible = False
+            End If
+
+
+            If OPClinicalManagementReport = "Yes" Then
+                MenuOpClinicalManagementReport.Visible = True
+            Else
+                MenuOpClinicalManagementReport.Visible = False
             End If
 
             If OPBinSequence = "Yes" Then

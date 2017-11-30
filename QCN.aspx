@@ -71,8 +71,7 @@
 <asp:TableRow>
 <asp:TableCell Width="1000px">    
 <p>
-    <%--<asp:Button ID="NewQCNB" class="btn btn-primary btn-lg" runat="server" Text="New QCN Form" />&nbsp;--%>
-    <a runat="server" href="~/QCNForm" onClick="switchView('New QCN Form')" class="btn btn-primary btn-lg">New QCN Form</a>&nbsp;
+    <asp:Button ID="NewQCNB" class="btn btn-primary btn-lg" runat="server" Text="New QCN Form" />&nbsp;
     <asp:Button ID="QCNDashboardB" class="btn btn-primary btn-lg" runat="server" Text="QCN Dashboard" />
     </p>
 
@@ -87,8 +86,7 @@
      <asp:SqlDataSource runat="server" ID="AssignedSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectQCNUser"></asp:SqlDataSource>
  <p>
      <b>QCN Status:</b>&nbsp;&nbsp;<asp:DropDownList ID="QCNStatusSearchDD" AppendDataBoundItems="true" runat="server" DataSourceID="QCNStatusSearchDS" DataTextField="Status" DataValueField="Status">
-            <asp:ListItem Selected = "True" Text = "All Open" Value = "All Open"></asp:ListItem>
-            <asp:ListItem  Text = "All" Value = "All"></asp:ListItem>
+            <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
         </asp:DropDownList>
            
      <asp:SqlDataSource runat="server" ID="QCNStatusSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectQCNStatus '1'"></asp:SqlDataSource>
@@ -107,14 +105,15 @@
         </asp:DropDownList>
            
      <asp:SqlDataSource runat="server" ID="QCNLocationDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectQCNLocation"></asp:SqlDataSource>
-
-        
 &nbsp;<asp:Button ID="SearchButton"  runat="server" Text="Search" /> &nbsp;&nbsp; 
+    </p>
+    <p><asp:CheckBox ID="CompletedCB" OnCheckedChanged="OnCheckedChanged" AutoPostBack="true" runat="server" Text="Include Completed and Rejected?" />
     </p>
 
 
+
     <p>
-    <asp:GridView  CssClass="GridViewitem" ID="GridViewQCN" ButtonType="Button"  OnPageIndexChanging="OnPaging" OnRowDataBound="OnRowDataBound" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="QCNDatasource" GridLines="Vertical" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="QCNID" PageSize="20" EmptyDataText="No records returned">
+    <asp:GridView  CssClass="GridViewitem" ID="GridViewQCN" ButtonType="Button"  OnPageIndexChanging="OnPaging" OnRowDataBound="OnRowDataBound" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="QCNDatasource" GridLines="Vertical" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="QCNID" PageSize="20">
         <AlternatingRowStyle BackColor="#DCDCDC" />
         <Columns>
             <asp:HyperLinkField DataNavigateUrlFields="QCNID" DataNavigateUrlFormatString="QCNFormEdit.aspx?QCNID={0}" Text="Edit" ></asp:HyperLinkField>
@@ -192,14 +191,14 @@
     <p>
   
         <asp:SqlDataSource ID="QCNDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
-                SelectCommand="exec sp_SelectQCN @FacilityName,@LocationName,@QCNStatusName,@AssignedUserName" 
+                SelectCommand="exec sp_SelectQCN @FacilityName,@LocationName,@QCNStatusName,@Completed,@AssignedUserName" 
                 DeleteCommand="exec sp_DeleteQCN @QCNID">
             <SelectParameters>
                 <asp:ControlParameter ControlID="AssignedSearchDD" PropertyName ="Text" DefaultValue="%" Name="AssignedUserName" Type="String"></asp:ControlParameter>
                 <asp:ControlParameter ControlID="QCNStatusSearchDD" PropertyName ="Text" DefaultValue="%" Name="QCNStatusName" Type="String"></asp:ControlParameter>
                 <asp:ControlParameter ControlID="QCNLocationS" PropertyName ="Text" DefaultValue="%" Name="LocationName" Type="String"></asp:ControlParameter>
                 <asp:ControlParameter ControlID="QCNFacilityS" PropertyName ="Text" DefaultValue="%" Name="FacilityName" Type="String"></asp:ControlParameter>
-                
+                <asp:ControlParameter ControlID="CompletedCB" Name="Completed" PropertyName="Checked" /> 
             </SelectParameters>
 
 

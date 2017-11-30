@@ -51,6 +51,7 @@ Partial Public Class SiteMaster
             Dim UserMENUDashboardHB3 As String
             Dim UserMENUDashboardHB4 As String
             Dim UserMENUDashboardHB5 As String
+            Dim UserMENUDashboardCMR As String
             Dim UserMENUQCN As String
             Dim UserMENUGemba As String
             Dim UserMENUHardware As String
@@ -65,6 +66,7 @@ Partial Public Class SiteMaster
             Dim MENUDashboardHB3 As String
             Dim MENUDashboardHB4 As String
             Dim MENUDashboardHB5 As String
+            Dim MENUDashboardCMR As String
             Dim MENUQCN As String
             Dim MENUGemba As String
             Dim MENUHardware As String
@@ -146,22 +148,22 @@ Partial Public Class SiteMaster
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Dashboard-HuddleBoard")
                     UserMENUDashboardHB = Convert.ToString(cmdadmin.ExecuteScalar())
                     cmdadmin.Parameters.Clear()
-                    'UserMENU-Dashboard-HuddleBoard
+                    'UserMENU-Dashboard-HuddleBoard2
                     cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Dashboard-HuddleBoard2")
                     UserMENUDashboardHB2 = Convert.ToString(cmdadmin.ExecuteScalar())
                     cmdadmin.Parameters.Clear()
-                    'UserMENU-Dashboard-HuddleBoard
+                    'UserMENU-Dashboard-HuddleBoard3
                     cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Dashboard-HuddleBoard3")
                     UserMENUDashboardHB3 = Convert.ToString(cmdadmin.ExecuteScalar())
                     cmdadmin.Parameters.Clear()
-                    'UserMENU-Dashboard-HuddleBoard
+                    'UserMENU-Dashboard-HuddleBoard4
                     cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Dashboard-HuddleBoard4")
                     UserMENUDashboardHB4 = Convert.ToString(cmdadmin.ExecuteScalar())
                     cmdadmin.Parameters.Clear()
-                    'UserMENU-Dashboard-HuddleBoard
+                    'UserMENU-Dashboard-HuddleBoard5
                     cmdadmin.Parameters.AddWithValue("@UserLogin", UserLogin)
                     cmdadmin.Parameters.AddWithValue("@OpName", "MENU-Dashboard-HuddleBoard5")
                     UserMENUDashboardHB5 = Convert.ToString(cmdadmin.ExecuteScalar())
@@ -236,19 +238,19 @@ Partial Public Class SiteMaster
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Dashboard-HuddleBoard")
                     MENUDashboardHB = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
-                    'MENU-Dashboard-HuddleBoard
+                    'MENU-Dashboard-HuddleBoard2
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Dashboard-HuddleBoard2")
                     MENUDashboardHB2 = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
-                    'MENU-Dashboard-HuddleBoard
+                    'MENU-Dashboard-HuddleBoard3
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Dashboard-HuddleBoard3")
                     MENUDashboardHB3 = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
-                    'MENU-Dashboard-HuddleBoard
+                    'MENU-Dashboard-HuddleBoard4
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Dashboard-HuddleBoard4")
                     MENUDashboardHB4 = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
-                    'MENU-Dashboard-HuddleBoard
+                    'MENU-Dashboard-HuddleBoard5
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "MENU-Dashboard-HuddleBoard5")
                     MENUDashboardHB5 = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()

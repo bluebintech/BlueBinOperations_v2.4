@@ -54,6 +54,7 @@
               <a class="dropdown-toggle" runat="server" data-toggle="dropdown" href="#" id="MenuOpsReports">Operational Performance <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="OpsReports">
                             <li><a href="#" runat="server" id="MenuOPNodeScorecard" onClick="switchView('Node Scorecard')">Node Scorecard</a></li>
+                            <li><a href="#" runat="server" id="MenuOPClinicalManagementReport" onClick="switchView('Clinical Management Report')">Clinical Management Report</a></li>
                             <li class="divider" id="NodeScorecardLine" runat="server"></li>
                             <li><a href="#" runat="server" id="MenuOPSupplySpend" onClick="switchView('Supply Spend')">Supply Spend</a></li>
                             <li><a href="#" runat="server" id="MenuOPStatCalls" onClick="switchView('Stat Calls')">Stat Calls</a></li>
