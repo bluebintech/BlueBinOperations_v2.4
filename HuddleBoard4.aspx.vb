@@ -27,6 +27,7 @@ Partial Public Class HuddleBoard4
         Dim TableauURL As String
         Dim HuddleBoardTitle As String
         Dim HuddleBoardWorkbook As String
+        Dim HuddleBoardView As String
         Dim UserLogin As String = Page.User.Identity.Name.ToString().ToLower()
         ' Create a request using a URL that can receive a post.
 
@@ -53,6 +54,10 @@ Partial Public Class HuddleBoard4
                 'Tableau Workbook Name
                 cmdtableau.Parameters.AddWithValue("@ConfigName", "HuddleBoard4Workbook")
                 HuddleBoardWorkbook = Convert.ToString(cmdtableau.ExecuteScalar())
+                cmdtableau.Parameters.Clear()
+                'Tableau View Name
+                cmdtableau.Parameters.AddWithValue("@ConfigName", "HuddleBoard4View")
+                HuddleBoardView = Convert.ToString(cmdtableau.ExecuteScalar())
                 cmdtableau.Parameters.Clear()
                 'Tableau Workbook Name
                 cmdtableau.Parameters.AddWithValue("@ConfigName", "TableauWorkbook")
@@ -129,7 +134,7 @@ Partial Public Class HuddleBoard4
         Dim TableaURLDB As String = dt.Rows(0)("ConfigValue").ToString()
 
         'TableauFullURL = "http://intelligence.bluebin.com/t" & TableaURLDB & "Home"
-        TableauFullURL = TableauURL & "/trusted/" & responseFromServer & "/t/" & TableauSite & "/views/" & HuddleBoardWorkbook & "/HuddleBoard&:toolbar=no&:toolbar=bottom"
+        TableauFullURL = TableauURL & "/trusted/" & responseFromServer & "/t/" & TableauSite & "/views/" & HuddleBoardWorkbook & "/" & HuddleBoardView & "&:toolbar=no&:toolbar=bottom"
 
         con.Close()
         'End If

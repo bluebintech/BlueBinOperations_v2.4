@@ -85,15 +85,23 @@
 <asp:TableRow Height="15"></asp:TableRow>
   <asp:TableRow><asp:TableCell>
         <asp:Table runat="server" ID="SearchTable">
-                <asp:TableRow><asp:TableCell><asp:Label runat="server" id="LocationL">Find Cone by Location:&nbsp;</asp:Label></asp:TableCell><asp:TableCell><asp:TextBox ID="LocationSB" runat="server" Width="200px"></asp:TextBox></asp:TableCell></asp:TableRow>
-            <asp:TableRow Height="5px"></asp:TableRow>
-                <asp:TableRow><asp:TableCell><asp:Label runat="server" id="ItemL">Find Cone by Item:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</asp:Label></asp:TableCell><asp:TableCell><asp:TextBox ID="ItemSB" runat="server" Width="200px"></asp:TextBox>&nbsp;<asp:Button ID="SearchButton"  runat="server" Text="Search" /> &nbsp;&nbsp;</asp:TableCell></asp:TableRow>
-             
-                
+                <asp:TableRow><asp:TableCell>
+
+    <p>
+     <b>Facility:</b>&nbsp;<asp:DropDownList ID="ConesFacilityS" AppendDataBoundItems="true" runat="server" DataSourceID="ConesFacilityDS" DataTextField="FacilityName" DataValueField="FacilityName">
+            <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
+        </asp:DropDownList><asp:SqlDataSource runat="server" ID="ConesFacilityDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectConesFacility"></asp:SqlDataSource>
+&nbsp;&nbsp;&nbsp;
+     <b>Location:</b>&nbsp;<asp:DropDownList ID="ConesLocationS" AppendDataBoundItems="true" runat="server" DataSourceID="ConesLocationDS" DataTextField="LocationName" DataValueField="LocationName">
+            <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
+        </asp:DropDownList><asp:SqlDataSource runat="server" ID="ConesLocationDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectConesLocation"></asp:SqlDataSource>
+&nbsp;&nbsp;&nbsp;
+        <b>Item:</b>&nbsp;<asp:TextBox ID="ItemSB" runat="server" Width="75px"></asp:TextBox>
+&nbsp;&nbsp;&nbsp;<asp:Button ID="Button3"  runat="server" Text="Search" /> &nbsp;&nbsp; 
+    </asp:TableCell></asp:TableRow>  
             <asp:TableRow Height="15px"></asp:TableRow>
             </asp:Table>
     </asp:TableCell></asp:TableRow>
-    
       
 
 <asp:TableRow>
@@ -242,7 +250,7 @@
          <p>
         <asp:SqlDataSource runat="server" ID="ConesDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' 
             DeleteCommand="exec sp_EditConesDeployed @ConesDeployedID" 
-            SelectCommand="exec sp_SelectConesDeployed @Location,@Item" 
+            SelectCommand="exec sp_SelectConesDeployed @Facility,@Location,@Item" 
             UpdateCommand="exec sp_EditConesDetail @ConesDeployedID,@DetailsText,@ExpectedDelivery,@SubProduct">
         <DeleteParameters>
             <asp:Parameter Name="ConesDeployedID" Type="Int32"></asp:Parameter>
@@ -254,7 +262,8 @@
             <asp:Parameter Name="SubProduct" Type="String"></asp:Parameter>
         </UpdateParameters>
             <SelectParameters>
-                <asp:ControlParameter ControlID="LocationSB" Name="Location" PropertyName="Text" DefaultValue="%"  />
+                <asp:ControlParameter ControlID="ConesFacilityS" Name="Facility" PropertyName="Text" DefaultValue="%"  />
+                <asp:ControlParameter ControlID="ConesLocationS" Name="Location" PropertyName="Text" DefaultValue="%"  />
                 <asp:ControlParameter ControlID="ItemSB" Name="Item" PropertyName="Text" DefaultValue="%"  />
             </SelectParameters>
     </asp:SqlDataSource>
@@ -269,7 +278,7 @@
                 </FilterParameters>       
         </asp:SqlDataSource>      
         <asp:SqlDataSource ID="ClinicalDSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
-            SelectCommand="exec sp_SelectConesLocation"  FilterExpression="LocationID = '{0}'" >
+            SelectCommand="exec sp_SelectConesItem"  FilterExpression="LocationID = '{0}'" >
         <FilterParameters>
         <asp:ControlParameter Name="LocationID" ControlID="LocationDD" PropertyName="SelectedValue" />
         </FilterParameters>

@@ -53,26 +53,31 @@
             <li class="dropdown">
               <a class="dropdown-toggle" runat="server" data-toggle="dropdown" href="#" id="MenuOpsReports">Operational Performance <span class="caret"></span></a>
               <ul class="dropdown-menu" aria-labelledby="OpsReports">
-                            <li><a href="#" runat="server" id="MenuOPNodeScorecard" onClick="switchView('Node Scorecard')">Node Scorecard</a></li>
+                            
                             <li><a href="#" runat="server" id="MenuOPClinicalManagementReport" onClick="switchView('Clinical Management Report')">Clinical Management Report</a></li>
-                            <li class="divider" id="NodeScorecardLine" runat="server"></li>
-                            <li><a href="#" runat="server" id="MenuOPSupplySpend" onClick="switchView('Supply Spend')">Supply Spend</a></li>
-                            <li><a href="#" runat="server" id="MenuOPStatCalls" onClick="switchView('Stat Calls')">Stat Calls</a></li>
-                            <li><a href="#" runat="server" id="MenuOPStatCallsDetail" onClick="switchView('Stat Calls Detail')">Stat Calls Detail</a></li>
-                            <li><a href="#" runat="server" id="MenuOPWarehouseVolume" onClick="switchView('Warehouse Value')">Warehouse Volume</a></li>
-                            <li><a href="#" runat="server" id="MenuOPWarehouseHistory" onClick="switchView('Warehouse History')">Warehouse History</a></li>
-                            <li><a href="#" runat="server" id="MenuOPWarehouseDetail" onClick="switchView('Warehouse Size')">Warehouse Detail</a></li>
-                            <li><a href="#" runat="server" id="MenuOPPickLineVolume" onClick="switchView('Pick Line Volume')">Pick Line Volume</a></li>
+                            <li><a href="#" runat="server" id="MenuOPNodeScorecard" onClick="switchView('Node Scorecard')">Node Scorecard</a></li>
                             <li><a href="#" runat="server" id="MenuOPOverallLineVolume" onClick="switchView('Overall Line Volume')">Overall Line Volume</a></li>
-                            <li><a href="#" runat="server" id="MenuOPKanbansAdjusted" onClick="switchView('Kanbans Adjusted')">Kanbans Adjusted</a></li>
+                            <li><a href="#" runat="server" id="MenuOpNewVsOld" onClick="switchView('New vs Old Par Valuation')">Pre-Post Inventory Report</a></li>
+                            <li><a href="#" runat="server" id="MenuOPStatCalls" onClick="switchView('Stat Calls')">Stat Calls</a></li>
+                            <li><a href="#" runat="server" id="MenuOPSupplySpend" onClick="switchView('Supply Spend')">Supply Spend</a></li>                            
+                            <li class="divider" id="NodeScorecardLine" runat="server"></li>
+
+                            <li><a href="#" runat="server" id="MenuOpBinSequence" onClick="switchView('Bin Sequence Report')">Bin Sequence Report</a></li>
                             <li><a href="#" runat="server" id="MenuOPConesDashboard" onClick="switchView('Cones Deployed Dashboard')">Cones Dashboard</a></li>
                             <li><a href="#" runat="server" id="MenuOPItemUsage" onClick="switchView('Item Usage and Cost')">Item Usage</a></li>
-                            <li><a href="#" runat="server" id="MenuOpBinSequence" onClick="switchView('Bin Sequence Report')">Bin Sequence Report</a></li>
+                            <li><a href="#" runat="server" id="MenuOPKanbansAdjusted" onClick="switchView('Kanbans Adjusted')">Kanbans Adjusted</a></li>
+                            <li><a href="#" runat="server" id="MenuOPPickLineVolume" onClick="switchView('Pick Line Volume')">Pick Line Volume</a></li>
+                            <li><a href="#" runat="server" id="MenuOPStatCallsDetail" onClick="switchView('Stat Calls Detail')">Stat Calls Detail</a></li>
+                            <li><a href="#" runat="server" id="MenuOPWarehouseDetail" onClick="switchView('Warehouse Size')">Warehouse Detail</a></li>
+                            <li><a href="#" runat="server" id="MenuOPWarehouseHistory" onClick="switchView('Warehouse History')">Warehouse History</a></li>
+                            <li><a href="#" runat="server" id="MenuOPWarehouseVolume" onClick="switchView('Warehouse Value')">Warehouse Volume</a></li>
+
                             <li class="divider" id="QCNGembaLine" runat="server"></li>
-                            <li><a href="#" runat="server" id="MenuOPQCNDashboard" onClick="switchView('QCN Dashboard')">QCN Dashboard</a></li>
-                            <li><a href="#" runat="server" id="MenuOPQCNDetail" onClick="switchView('QCN Detail')">QCN Detail</a></li>
                             <li><a href="#" runat="server" id="MenuOPGembaDashboard" onClick="switchView('Gemba Dashboard')">Gemba Dashboard</a></li>
                             <li><a href="#" runat="server" id="MenuOPGembaAuditor" onClick="switchView('Gemba Auditor Details')">Gemba Auditor Details</a></li>
+                            <li><a href="#" runat="server" id="MenuOPQCNDashboard" onClick="switchView('QCN Dashboard')">QCN Dashboard</a></li>
+                            <li><a href="#" runat="server" id="MenuOPQCNDetail" onClick="switchView('QCN Detail')">QCN Detail</a></li>
+
                             <li class="divider" id ="TSLine" runat="server"></li>
                             <li><a href="#" runat="server" id="MenuOPTSAT" onClick="switchView('Time Study Activity Times')">Time Study Activity Times</a></li>
                             <li><a href="#" runat="server" id="MenuOPTSAverages" onClick="switchView('Time Study Averages')">Time Study Averages</a></li>

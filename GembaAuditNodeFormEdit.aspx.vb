@@ -15,7 +15,7 @@ Partial Class GembaAuditNodeFormEdit
     Dim AdditionalComments As String
     Dim PS_EmptyBins As Integer = 0
     Dim PS_BackBins As Integer = 0
-    Dim PS_StockOuts As Integer = 0
+    Dim PS_ExpiredItems As Integer = 0
     Dim PS_ReturnVolume As Integer = 0
     Dim PS_NonBBT As Integer = 0
     Dim PS_OrangeCones As Integer = 0
@@ -80,7 +80,7 @@ Partial Class GembaAuditNodeFormEdit
             'Pull Standards
             PS_EmptyBinsRL.SelectedValue = dt.Rows(0)("PS_EmptyBins").ToString()
             PS_BackBinsRL.SelectedValue = dt.Rows(0)("PS_BackBins").ToString()
-            PS_StockOutsRL.SelectedValue = dt.Rows(0)("PS_StockOuts").ToString()
+            PS_ExpiredItemsRL.SelectedValue = dt.Rows(0)("PS_ExpiredItems").ToString()
             PS_ReturnVolumeRL.SelectedValue = dt.Rows(0)("PS_ReturnVolume").ToString()
             PS_NonBBTRL.SelectedValue = dt.Rows(0)("PS_NonBBT").ToString()
             PS_OrangeConesDD.SelectedValue = dt.Rows(0)("PS_OrangeCones").ToString()
@@ -139,7 +139,7 @@ Partial Class GembaAuditNodeFormEdit
         'Pull Standards
         PS_EmptyBins = PS_EmptyBinsRL.SelectedValue
         PS_BackBins = PS_BackBinsRL.SelectedValue
-        PS_StockOuts = PS_StockOutsRL.SelectedValue
+        PS_ExpiredItems = PS_ExpiredItemsRL.SelectedValue
         PS_ReturnVolume = PS_ReturnVolumeRL.SelectedValue
         PS_NonBBT = PS_NonBBTRL.SelectedValue
 
@@ -183,7 +183,7 @@ Partial Class GembaAuditNodeFormEdit
         NIS_Comments = NIS_Comments.Replace("'", "''")
 
         RS_ShadowedUser = ShadowedUserDD.SelectedItem.Value
-        PS_TotalScore = PS_EmptyBins + PS_BackBins + PS_StockOuts + PS_ReturnVolume + PS_NonBBT
+        PS_TotalScore = PS_EmptyBins + PS_BackBins + PS_ExpiredItems + PS_ReturnVolume + PS_NonBBT
         RS_TotalScore = RS_BinsFilled + RS_EmptiesCollected + RS_BinServices + RS_NodeSwept + RS_NodeCorrections
         SS_TotalScore = SS_Supplied + SS_KanbansPP + SS_StockoutsPT + SS_StockoutsMatch + SS_HuddleBoardMatch
         NIS_TotalScore = NIS_Labels + NIS_CardHolders + NIS_BinsRacks + NIS_GeneralAppearance + NIS_Signage
@@ -201,7 +201,7 @@ Partial Class GembaAuditNodeFormEdit
            ,'" & AdditionalComments & "'
            ,'" & PS_EmptyBins & "'
            ,'" & PS_BackBins & "'
-           ,'" & PS_StockOuts & "'
+           ,'" & PS_ExpiredItems & "'
            ,'" & PS_ReturnVolume & "'
            ,'" & PS_NonBBT & "'
            ,'" & PS_OrangeCones & "'
@@ -267,7 +267,7 @@ Partial Class GembaAuditNodeFormEdit
         'Pull Standards
         PS_EmptyBins = PS_EmptyBinsRL.SelectedValue
         PS_BackBins = PS_BackBinsRL.SelectedValue
-        PS_StockOuts = PS_StockOutsRL.SelectedValue
+        PS_ExpiredItems = PS_ExpiredItemsRL.SelectedValue
         PS_ReturnVolume = PS_ReturnVolumeRL.SelectedValue
         PS_NonBBT = PS_NonBBTRL.SelectedValue
 
@@ -294,7 +294,7 @@ Partial Class GembaAuditNodeFormEdit
         NIS_Signage = NIS_SignageRL.SelectedValue
 
 
-        PS_TotalScore = PS_EmptyBins + PS_BackBins + PS_StockOuts + PS_ReturnVolume + PS_NonBBT
+        PS_TotalScore = PS_EmptyBins + PS_BackBins + PS_ExpiredItems + PS_ReturnVolume + PS_NonBBT
         RS_TotalScore = RS_BinsFilled + RS_EmptiesCollected + RS_BinServices + RS_NodeSwept + RS_NodeCorrections
         SS_TotalScore = SS_Supplied + SS_KanbansPP + SS_StockoutsPT + SS_StockoutsMatch + SS_HuddleBoardMatch
         NIS_TotalScore = NIS_Labels + NIS_CardHolders + NIS_BinsRacks + NIS_GeneralAppearance + NIS_Signage

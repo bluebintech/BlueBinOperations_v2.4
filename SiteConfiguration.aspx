@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Site Configuration" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="SiteConfiguration.aspx.vb" Inherits="SiteConfiguration" %>
+﻿<%@ Page Title="Site Configuration" Debug="true" Language="VB" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeFile="SiteConfiguration.aspx.vb" Inherits="SiteConfiguration" %>
 
     <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -199,7 +199,7 @@
         <SortedDescendingHeaderStyle BackColor="#000065"></SortedDescendingHeaderStyle>
     </asp:GridView>
  
-        </p>
+        
 </asp:TableCell> </asp:TableRow>
 <asp:TableRow>
 <asp:TableCell Width="500px"  >
@@ -277,7 +277,7 @@
         <SortedDescendingHeaderStyle BackColor="#000065"></SortedDescendingHeaderStyle>
     </asp:GridView>
 
-        </p>
+        
 </asp:TableCell> </asp:TableRow>
 <asp:TableRow>
 <asp:TableCell Width="500px"  >
@@ -354,22 +354,34 @@
         <SortedDescendingHeaderStyle BackColor="#000065"></SortedDescendingHeaderStyle>
     </asp:GridView>
  
-        </p>
+        
 </asp:TableCell> </asp:TableRow>
 
-<asp:TableRow Height="10"></asp:TableRow>
     <asp:TableRow>
     <asp:TableCell Width="500px"  >
         <asp:Label runat="server" id="hiddenHistoricalDimBinJoin" Visible="False"><h3>Historical Locations</h3></asp:Label></asp:TableCell></asp:TableRow>
     
     <asp:TableRow ID="AddHistoricalDimBinJoin" runat="server" Width="500">
         <asp:TableCell >
-        <asp:Table runat="server" CellPadding="1" CellSpacing="1" Height="25">
+        <asp:Table runat="server" CellPadding="1" CellSpacing="1" Height="10">
         <asp:TableRow Width="250" BackColor="#CCCCCC">
           <asp:TableCell ForeColor="#000084" Font-Bold="True" BackColor="White">Add Historical Location Entry: </asp:TableCell>
         </asp:TableRow>
+        </asp:Table>
+        <asp:Table runat="server" CellPadding="1" CellSpacing="1" Height="25">
+            <asp:TableRow Width="250" BackColor="#CCCCCC"> 
+                <asp:TableCell Width ="3"></asp:TableCell>
+                <asp:TableCell>Facility Name</asp:TableCell><asp:TableCell Width ="3"></asp:TableCell>
+                <asp:TableCell>Old Location</asp:TableCell><asp:TableCell Width ="3"></asp:TableCell>
+                <asp:TableCell>Old Location Name</asp:TableCell><asp:TableCell Width ="3"></asp:TableCell>
+                <asp:TableCell>Old ST</asp:TableCell><asp:TableCell Width ="3"></asp:TableCell>
+                <asp:TableCell>New Location</asp:TableCell><asp:TableCell Width ="3"></asp:TableCell>
+                <asp:TableCell>New ST</asp:TableCell><asp:TableCell Width ="3"></asp:TableCell>
+                <asp:TableCell></asp:TableCell><asp:TableCell Width ="3"></asp:TableCell>
+            </asp:TableRow>
         <asp:TableRow Width="250" BackColor="#CCCCCC"> 
-        <asp:TableCell>
+        <asp:TableCell Width ="3"></asp:TableCell>
+         <asp:TableCell>
                     <asp:DropDownList ID="FacilityInsertDD"  AppendDataBoundItems="true" runat="server" DataSourceID="FacilityDataSource" DataTextField="FacilityName" DataValueField="FacilityID" >
                     <asp:ListItem Selected="True" Text = "--Select--" Value = "" ></asp:ListItem>
                     </asp:DropDownList>
@@ -383,17 +395,27 @@
           <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>
              <asp:TextBox runat="server" ID="OldLocationName"></asp:TextBox>                 
           </asp:TableCell>
+          <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>
+             <asp:TextBox runat="server" ID="OldLocationServiceTimeTBI"  TextMode="Number" ToolTip="Enter Value in seconds" Width="60"></asp:TextBox>               
+          </asp:TableCell>
+
+                       
 
           <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>
                     <asp:DropDownList ID="LocationInsertDD"  AppendDataBoundItems="true" runat="server" DataSourceID="LocationDataSource" DataTextField="LocationName" DataValueField="LocationID">
                     <asp:ListItem Selected="True" Text = "--Select--" Value = "" ></asp:ListItem>
                     </asp:DropDownList>
           </asp:TableCell>
+
+          <asp:TableCell Width ="3"></asp:TableCell><asp:TableCell>
+             <asp:TextBox runat="server" ID="NewLocationServiceTimeTBI"  TextMode="Number" ToolTip="Enter Value in seconds" Width="60"></asp:TextBox>                
+          </asp:TableCell>
                         
           <asp:TableCell Width ="3"></asp:TableCell>
-              <asp:TableCell  BackColor="White"><asp:LinkButton ID="HistoricalDimBinJoinAddB" runat="server" Text="Submit"  class="btn btn-primary btn-sm"></asp:LinkButton></asp:TableCell>
-          
+          <asp:TableCell  BackColor="White"><asp:LinkButton ID="HistoricalDimBinJoinAddB" runat="server" Text="Submit"  class="btn btn-primary btn-sm"></asp:LinkButton></asp:TableCell>
+          <asp:TableCell Width ="3"></asp:TableCell>
         </asp:TableRow>
+        <asp:TableRow Height="10px" Width="250" BackColor="#CCCCCC"> </asp:TableRow>
         <asp:TableRow Height="10px"></asp:TableRow>
           </asp:Table>
 
@@ -418,7 +440,7 @@
                 </asp:TemplateField>
 
             
-            <asp:TemplateField HeaderText="ID" InsertVisible="False" SortExpression="HistoricalDimBinJoinID">
+            <asp:TemplateField HeaderText="ID" InsertVisible="False" Visible="false" SortExpression="HistoricalDimBinJoinID">
                 <EditItemTemplate>
                     <asp:Label runat="server" Text='<%# Eval("HistoricalDimBinJoinID") %>' ID="HistoricalDimBinJoinIDLE"></asp:Label>
                 </EditItemTemplate>
@@ -438,8 +460,7 @@
 
             <asp:TemplateField HeaderText="Facility Name" SortExpression="FacilityName">
                 <EditItemTemplate>
-                    <asp:DropDownList runat="server"  AutoPostBack="False" ID="FacilityDD" SelectedValue=<%#Bind("FacilityName")%>>
-                    </asp:DropDownList>
+                    <asp:Label runat="server" Text='<%# Bind("FacilityName") %>' ID="FacilityNameLI" ></asp:Label>
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("FacilityName") %>' ID="FacilityNameLI" ></asp:Label>
@@ -449,7 +470,7 @@
             
             <asp:TemplateField HeaderText="Old Location" SortExpression="OldLocationID">
                 <EditItemTemplate>
-                    <asp:TextBox runat="server" Text='<%# Bind("OldLocationID") %>' ID="OldLocationIDLE"></asp:TextBox><asp:RequiredFieldValidator ID="RequiredFieldValidatorHistoricalDimBinJoin" ValidationGroup="EditOldLocationID" runat="server" ControlToValidate="EditOldLocationID" Display="Dynamic" ForeColor="Red" Font-Size="X-Small">REQUIRED</asp:RequiredFieldValidator>
+                    <asp:TextBox runat="server" Text='<%# Bind("OldLocationID") %>' ID="OldLocationIDLE"></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("OldLocationID") %>' ID="OldLocationIDLI"></asp:Label>
@@ -458,16 +479,26 @@
 
             <asp:TemplateField HeaderText="Old Location Name" SortExpression="OldLocationName">
                 <EditItemTemplate>
-                    <asp:Label runat="server" Text='<%# Eval("OldLocationName") %>' ID="OldLocationNameLE" ></asp:Label>
+                    <asp:TextBox runat="server" Text='<%# Bind("OldLocationName") %>' ID="OldLocationNameLE"></asp:TextBox>
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("OldLocationName") %>' ID="OldLocationNameLI" ></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             
+            <asp:TemplateField HeaderText="Old Location ST" InsertVisible="False" SortExpression="OldLocationServiceTime">
+                <EditItemTemplate>
+                    <asp:TextBox runat="server" Text='<%# Bind("OldLocationServiceTime") %>' ID="OldLocationServiceTimeTBE" TextMode="Number" ToolTip="Enter Value in seconds" Width="60"></asp:TextBox>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("OldLocationServiceTime") %>' ID="OldLocationServiceTimeLI"  Width="60"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+
             <asp:TemplateField HeaderText="New Location" SortExpression="NewLocationID">
                 <EditItemTemplate>
-                    <asp:DropDownList runat="server"  AutoPostBack="False" ID="LocationDD" SelectedValue=<%#Bind("LocationName")%>>
+                    <asp:DropDownList runat="server"  AutoPostBack="False" DataSourceID="LocationDataSource" DataTextField="LocationID" DataValueField="LocationID" ID="LocationDD" SelectedValue=<%#Bind("NewLocationID")%>>
                     </asp:DropDownList>
                 </EditItemTemplate>
                 <ItemTemplate>
@@ -484,6 +515,16 @@
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:Label runat="server" Text='<%# Bind("NewLocationName") %>' ID="NewLocationNameLI" ></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
+
+            <asp:TemplateField HeaderText="New Location ST" InsertVisible="False" SortExpression="NewLocationServiceTime">
+                <EditItemTemplate>
+                    <asp:TextBox runat="server" Text='<%# Bind("NewLocationServiceTime") %>' ID="NewLocationServiceTimeTBE"  TextMode="Number" ToolTip="Enter Value in seconds" Width="60"></asp:TextBox>
+                    
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label runat="server" Text='<%# Bind("NewLocationServiceTime") %>' ID="NewLocationServiceTimeLI"  Width="60"></asp:Label>
                 </ItemTemplate>
             </asp:TemplateField>
             
@@ -619,20 +660,25 @@
 
                 <p>
         <asp:SqlDataSource runat="server" ID="HistoricalDimBinJoinDataSource" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' 
+            
+            SelectCommand="exec sp_SelectHistoricalDimBinJoin" 
+            UpdateCommand="exec sp_EditHistoricalDimBinJoin @HistoricalDimBinJoinID,@OldLocationID,@OldLocationName,@OldLocationServiceTime,@NewLocationID,@NewLocationServiceTime"
             DeleteCommand="exec sp_DeleteHistoricalDimBinJoin @HistoricalDimBinJoinID" 
-            OldValuesParameterFormatString="original_{0}" SelectCommand="exec sp_SelectHistoricalDimBinJoin" 
-            UpdateCommand="exec sp_EditHistoricalDimBinJoin @HistoricalDimBinJoinID,@FacilityID,@OldLocationID,@OldLocationName,NewLocationID">
-        <DeleteParameters>
-            <asp:Parameter Name="HistoricalDimBinJoinID" Type="Int32"></asp:Parameter>
-        </DeleteParameters>
+            >
+        
 
         <UpdateParameters>
-            <asp:Parameter Name="HistoricalDimBinJoinID" Type="Int32"></asp:Parameter>
-            <asp:Parameter Name="FacilityID" Type="Int32"></asp:Parameter>
+            <asp:Parameter Name="HistoricalDimBinJoinID"></asp:Parameter>
             <asp:Parameter Name="OldLocationID" Type="String"></asp:Parameter>
             <asp:Parameter Name="OldLocationName" Type="String"></asp:Parameter>
+            <asp:Parameter Name="OldLocationServiceTime" Type="Int32"></asp:Parameter>
             <asp:Parameter Name="NewLocationID" Type="String"></asp:Parameter>
+            <asp:Parameter Name="NewLocationServiceTime" Type="Int32"></asp:Parameter>
         </UpdateParameters>
+        <DeleteParameters>
+            <asp:Parameter Name="HistoricalDimBinJoinID"></asp:Parameter>
+        </DeleteParameters>
+
     </asp:SqlDataSource>
 
 </p>

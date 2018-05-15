@@ -147,6 +147,7 @@ Public Class Dashboard
             Dim OPBinSequence As String
             Dim OPNodeScorecard As String
             Dim OPClinicalManagementReport As String
+            Dim OPNewVsOld As String
             Dim OPSupplySpend As String
             Dim OPStatCalls As String
             Dim OPStatCallsDetail As String
@@ -276,6 +277,9 @@ Public Class Dashboard
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-CMR")
                     OPClinicalManagementReport = Convert.ToString(cmdmenu.ExecuteScalar())
+                    cmdmenu.Parameters.Clear()
+                    cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-NewVsOld")
+                    OPNewVsOld = Convert.ToString(cmdmenu.ExecuteScalar())
                     cmdmenu.Parameters.Clear()
                     cmdmenu.Parameters.AddWithValue("@ConfigName", "OP-Supply Spend")
                     OPSupplySpend = Convert.ToString(cmdmenu.ExecuteScalar())
@@ -460,7 +464,7 @@ Public Class Dashboard
             End If
 
             'Op Performance Report Menus
-            If OPNodeScorecard = "Yes" Or OPClinicalManagementReport = "Yes" Then
+            If OPNodeScorecard = "Yes" Or OPClinicalManagementReport = "Yes" Or OPNewVsOld = "Yes" Or OPSupplySpend = "Yes" Or OPOverallLineVolume = "Yes" Or OPStatCalls = "Yes" Then
                 NodeScorecardLine.Visible = True
             Else
                 NodeScorecardLine.Visible = False
@@ -479,10 +483,10 @@ Public Class Dashboard
                 MenuOpClinicalManagementReport.Visible = False
             End If
 
-            If OPBinSequence = "Yes" Then
-                MenuOpBinSequence.Visible = True
+            If OPNewVsOld = "Yes" Then
+                MenuOpNewVsOld.Visible = True
             Else
-                MenuOpBinSequence.Visible = False
+                MenuOpNewVsOld.Visible = False
             End If
 
             If OPSupplySpend = "Yes" Then
@@ -495,6 +499,19 @@ Public Class Dashboard
                 MenuOPStatCalls.Visible = True
             Else
                 MenuOPStatCalls.Visible = False
+            End If
+
+            If OPOverallLineVolume = "Yes" Then
+                MenuOPOverallLineVolume.Visible = True
+            Else
+                MenuOPOverallLineVolume.Visible = False
+            End If
+
+
+            If OPBinSequence = "Yes" Then
+                MenuOpBinSequence.Visible = True
+            Else
+                MenuOpBinSequence.Visible = False
             End If
 
             If OPStatCallsDetail = "Yes" Then
@@ -525,12 +542,6 @@ Public Class Dashboard
                 MenuOPPickLineVolume.Visible = True
             Else
                 MenuOPPickLineVolume.Visible = False
-            End If
-
-            If OPOverallLineVolume = "Yes" Then
-                MenuOPOverallLineVolume.Visible = True
-            Else
-                MenuOPOverallLineVolume.Visible = False
             End If
 
             If OPKanbansAdjusted = "Yes" Then

@@ -152,12 +152,14 @@ Partial Class SiteConfiguration
         Dim conn As New SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings("Site_ConnectionString").ConnectionString)
         Dim ad As New SqlDataAdapter()
         Dim cmd As New SqlCommand()
-        Dim txtFacilityID As String = TryCast(GridViewConfig.FooterRow.FindControl("FacilityInsertDD"), DropDownList).SelectedItem.Value
-        Dim txtNewLocationID As String = TryCast(GridViewConfig.FooterRow.FindControl("LocationInsertDD"), DropDownList).SelectedItem.Value
-        Dim txtOldLocationID As TextBox = DirectCast(GridViewHistoricalDimBinJoin.FooterRow.FindControl("OldLocationID"), TextBox)
-        Dim txtOldLocationName As TextBox = DirectCast(GridViewHistoricalDimBinJoin.FooterRow.FindControl("OldLocationName"), TextBox)
+        Dim txtFacilityID As String = FacilityInsertDD.SelectedItem.Value
+        Dim txtNewLocationID As String = LocationInsertDD.SelectedItem.Value
+        Dim txtOldLocationID As String = OldLocationID.Text
+        Dim txtOldLocationName As String = OldLocationName.Text
+        Dim txtOldLocationServiceTime As String = OldLocationServiceTimeTBI.Text
+        Dim txtNewLocationServiceTime As String = NewLocationServiceTimeTBI.Text
         cmd.Connection = conn
-        cmd.CommandText = "exec sp_InsertHistoricalDimBinJoin '" + txtFacilityID & "','" + txtNewLocationID & "','" + txtOldLocationID.Text & "','" + txtOldLocationName.Text & "'"
+        cmd.CommandText = "exec sp_InsertHistoricalDimBinJoin '" + txtFacilityID & "','" + txtOldLocationID & "','" + txtOldLocationName & "','" + txtOldLocationServiceTime & "','" + txtNewLocationID & "','" + txtNewLocationServiceTime & "'"
         conn.Open()
         cmd.ExecuteNonQuery()
         conn.Close()

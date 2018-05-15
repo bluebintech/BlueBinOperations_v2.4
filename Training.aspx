@@ -319,8 +319,6 @@
             DeleteCommand="exec sp_DeleteTraining @TrainingID"
             UpdateCommand="exec sp_EditTraining  @TrainingID,@Status,@UpdaterTB">
             <UpdateParameters>
-                
-                
                 <asp:ControlParameter ControlID="UpdaterTB" Name="UpdaterTB" PropertyName="Text" />
                 <asp:Parameter Name="TrainingID"></asp:Parameter>
                 <asp:Parameter Name="Status"></asp:Parameter>

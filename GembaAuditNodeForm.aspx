@@ -178,7 +178,7 @@
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
-                    <asp:TableCell>&nbsp;<asp:Label ID="Label19" runat="server" Text="Non-Standard items in Node"></asp:Label></asp:TableCell>
+                    <asp:TableCell>&nbsp;<asp:Label ID="Label19" runat="server" Text="Non-Standard Items in Node"></asp:Label></asp:TableCell>
                     <asp:TableCell>
                     <asp:RadioButtonList id=PS_NonBBTRL runat="server" RepeatDirection="Horizontal" RepeatLayout="Table" CssClass="fixWidth18" RepeatColumns="6">
                             <asp:ListItem Value="0" Selected="True">5+</asp:ListItem>
@@ -191,15 +191,11 @@
                     </asp:TableCell>
                 </asp:TableRow>
                 <asp:TableRow>
-                    <asp:TableCell>&nbsp;<asp:Label ID="Label17" runat="server" Text="Stockouts (both Bins gone)"></asp:Label></asp:TableCell>
+                    <asp:TableCell>&nbsp;<asp:Label ID="Label17" runat="server" Text="Expired Items Found in Node"></asp:Label></asp:TableCell>
                     <asp:TableCell>
-                    <asp:RadioButtonList id=PS_StockOutsRL runat="server" RepeatDirection="Horizontal" RepeatLayout="Table" CssClass="fixWidth18" RepeatColumns="6">
-                            <asp:ListItem Value="0" Selected="True">5+</asp:ListItem>
-                            <asp:ListItem Value="1">4</asp:ListItem>
-                            <asp:ListItem Value="2">3</asp:ListItem>
-                            <asp:ListItem Value="3">2</asp:ListItem>
-                            <asp:ListItem Value="4">1</asp:ListItem>
-                            <asp:ListItem Value="5">None</asp:ListItem>
+                    <asp:RadioButtonList id=PS_ExpiredItemsRL runat="server" RepeatDirection="Horizontal" RepeatLayout="Table" CssClass="fixWidth18" RepeatColumns="3">
+                            <asp:ListItem Value="0" Selected="True">Yes&nbsp;&nbsp;</asp:ListItem>
+                            <asp:ListItem Value="5">No</asp:ListItem>
                         </asp:RadioButtonList>
                     </asp:TableCell>
                 </asp:TableRow>

@@ -27,12 +27,22 @@
         <asp:SqlDataSource runat="server" ID="FacilitySearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectGembaAuditNodeFacility"></asp:SqlDataSource>
 
 </p> 
-    <p>
+<p>
      <b>Location:&nbsp;</b><asp:DropDownList ID="LocationSearchDD" AppendDataBoundItems="true" runat="server" DataSourceID="LocationSearchDS" DataTextField="LocationName" DataValueField="LocationName">
             <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
         </asp:DropDownList>
         <asp:SqlDataSource runat="server" ID="LocationSearchDS" ConnectionString='<%$ ConnectionStrings:Site_ConnectionString %>' SelectCommand="exec sp_SelectGembaAuditNodeLocation"></asp:SqlDataSource>
-        &nbsp;<asp:Button ID="SearchButton" runat="server" Text="Search" />
+        
+
+</p> 
+<p>
+     <b>Expired Items:&nbsp;</b><asp:DropDownList ID="ExpiredItemsSearchDD" AppendDataBoundItems="true" runat="server">
+            <asp:ListItem Selected = "True" Text = "All" Value = ""></asp:ListItem>
+            <asp:ListItem Text = "Yes" Value = "0"></asp:ListItem>
+            <asp:ListItem Text = "No" Value = "5"></asp:ListItem>
+        </asp:DropDownList>
+        
+        &nbsp;<asp:Button ID="Button1" runat="server" Text="Search" />
 
 </p> 
         <p>
@@ -62,6 +72,7 @@
             <asp:BoundField DataField="Images" HeaderText="Images" SortExpression="Images" />
             <asp:BoundField DataField="AdditionalCommentsText" HeaderText="AdditionalCommentsText" SortExpression="AdditionalCommentsText" Visible="False" />
             <asp:BoundField DataField="Addtl Comments" HeaderText="Addtl Comments" SortExpression="Addtl Comments" />
+            <asp:BoundField DataField="ExpiredItems" HeaderText="Expired Items" SortExpression="ExpiredItems" />
             <asp:TemplateField ShowHeader="False">
              <ItemTemplate>
             <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Delete" OnClientClick="return confirm('Are you sure you want to delete this entry?');">Delete</asp:LinkButton>             
@@ -97,11 +108,12 @@
  </asp:Table>
 
 <asp:SqlDataSource ID="GembaAuditNodeSource" runat="server" ConnectionString="<%$ ConnectionStrings:Site_ConnectionString %>" 
-    SelectCommand="exec sp_SelectGembaAuditNode @FacilityName,@LocationName,@Auditer" DeleteCommand="exec sp_DeleteGembaAuditNode @GembaAuditNodeID" >
+    SelectCommand="exec sp_SelectGembaAuditNode @FacilityName,@LocationName,@Auditer,@ExpiredItems" DeleteCommand="exec sp_DeleteGembaAuditNode @GembaAuditNodeID" >
             <SelectParameters>
                 <asp:ControlParameter ControlID="AuditerSearchDD" PropertyName ="Text" DefaultValue="%" Name="Auditer" Type="String"></asp:ControlParameter>
                 <asp:ControlParameter ControlID="LocationSearchDD" PropertyName="Text" DefaultValue="%" Name="LocationName"></asp:ControlParameter>
                 <asp:ControlParameter ControlID="FacilitySearchDD" PropertyName="Text" DefaultValue="%" Name="FacilityName"></asp:ControlParameter>
+                <asp:ControlParameter ControlID="ExpiredItemsSearchDD" PropertyName="Text" DefaultValue="%" Name="ExpiredItems"></asp:ControlParameter>
             </SelectParameters>
 
 
